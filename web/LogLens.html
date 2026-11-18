@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LogLens · App 日志分析</title><style>:root{font-family:Inter,"Segoe UI","Microsoft YaHei",sans-serif;color:#203c43;background:#f3f6f5;font-size:14px}*{box-sizing:border-box}body{margin:0}aside{position:fixed;inset:0 auto 0 0;width:218px;background:#102e33;color:#dcebea;padding:35px 25px}.brand{font-size:28px;color:#70d6c0;font-weight:750}.brand span{color:white}.subtitle{font-size:10px;letter-spacing:2px;margin-top:13px;color:#91acb0}nav{display:grid;gap:13px;margin-top:55px}nav a{color:#bfd1d3;text-decoration:none;padding:14px 10px;border-radius:7px}nav a:hover{background:#24454b}.local{position:absolute;bottom:35px;color:#85d6bc;line-height:2}.local small{color:#9eb7ba}main{margin-left:218px;padding:42px 42px 24px;max-width:1800px}header,.sectionhead{display:flex;align-items:center;justify-content:space-between;gap:18px}.eyebrow{font-size:10px;letter-spacing:2px;color:#728b8b}h1{font-size:29px;letter-spacing:-1px;margin:14px 0}p{color:#6e8388;line-height:1.7}button,.button{font:inherit;padding:10px 15px;background:white;border:1px solid #d2dfdd;border-radius:7px;color:#31575a;cursor:pointer;display:inline-block;white-space:nowrap}button:hover,.button:hover{background:#e6f1ed}button:disabled{opacity:.45;cursor:default}.primary{background:#197c70;color:white;border-color:#197c70}.primary:hover{background:#12695e}input[type=file]{display:none}.drop{margin-top:24px;border:1px dashed #a1beb6;background:#eaf3ef;border-radius:12px;padding:25px;display:flex;align-items:center;justify-content:space-between;gap:15px}.drop strong{font-size:18px}.drop p{font-size:12px;margin-bottom:0}.drop.over{background:#d2e9de}.actions{display:flex;gap:8px;flex-wrap:wrap}#status{font-size:12px;color:#697f83;padding:15px 0;overflow-wrap:anywhere}progress{width:100%;accent-color:#197c70}details{padding:12px;background:#fff;border-radius:8px}#filelist{max-height:170px;overflow:auto;font-size:12px;line-height:1.9}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:12px 0 22px}.metrics article{background:white;border:1px solid #e0e9e6;padding:22px;border-radius:10px}.metrics span{font-size:12px;color:#6c8183}.metrics b{display:block;font-size:33px;margin:12px 0}.metrics small{color:#849493;font-size:11px}#issues{color:#bc703e}.panel{background:white;border:1px solid #e0e9e6;border-radius:11px;padding:24px;margin-bottom:22px}h2{font-size:17px;margin:0}.sectionhead p{font-size:12px;margin:7px 0}.chart{height:160px;display:flex;align-items:end;gap:4px;margin-top:25px;border-bottom:1px solid #dfe9e5}.bar{height:100%;flex:1;position:relative;border:0;border-radius:3px 3px 0 0;padding:0;background:transparent;min-width:3px;display:flex;align-items:end}.bar .all{width:100%;background:#6ab5a4;border-radius:3px 3px 0 0;min-height:2px}.bar .bad{position:absolute;bottom:0;width:100%;background:#d69b65;min-height:0}.bar:hover,.bar.active{outline:2px solid #1d7b6b;background:#eaf5ee}.axis{display:flex;justify-content:space-between;margin-top:9px;color:#869592;font-size:11px}.filters{display:flex;gap:10px;margin:18px 0}.filters input,.filters select{padding:10px;border:1px solid #dbe5e1;border-radius:6px;background:#fcfdfc;color:#355254;min-width:0}.filters input{flex:1}.filters select{max-width:24%}.tablewrap{overflow:auto}table{border-collapse:collapse;width:100%;table-layout:fixed;font-size:12px}th{text-align:left;background:#f4f7f5;color:#7a8c89;font-weight:500;padding:12px}th:nth-child(1){width:175px}th:nth-child(2){width:60px}th:nth-child(3){width:180px}th:nth-child(5){width:95px}td{padding:13px 12px;border-bottom:1px solid #edf1ee;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}tbody tr[data-id]{cursor:pointer}tbody tr:hover{background:#f1f8f4}.badge{border-radius:4px;padding:3px 6px;background:#edf3ef;color:#658174}.badge.bad{background:#fff0e3;color:#ae642b}.empty{text-align:center;padding:48px;color:#91a39d;width:100%}footer{display:flex;align-items:center;justify-content:flex-end;gap:15px;padding-top:18px;font-size:12px}.footnote{font-size:11px}.timefilter{color:#ad713b;font-size:12px;margin-bottom:10px}dialog{border:1px solid #d6e1dc;border-radius:12px;width:min(1000px,90vw);max-height:86vh;padding:28px;color:#28464a}dialog::backdrop{background:#102b3390}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#112f35;color:#d2e9df;border-radius:8px;padding:20px;max-height:42vh;overflow:auto;font-size:12px;line-height:1.7}#reason{color:#ae6b30}#context button{display:block;text-align:left;width:100%;white-space:normal;margin:6px 0;font-size:12px;overflow-wrap:anywhere}#source{overflow-wrap:anywhere}a:focus-visible,button:focus-visible,.button:focus-within{outline:2px solid #139e86;outline-offset:3px}@media(max-width:1100px){aside{width:165px;padding:28px 15px}main{margin-left:165px;padding:25px}.drop{display:block}.actions{margin-top:18px}.metrics{grid-template-columns:repeat(2,1fr)}}@media(max-width:700px){aside{position:static;width:100%;padding:15px 20px}.subtitle,nav,.local{display:none}.brand{font-size:22px}main{margin:0;padding:20px 12px}header{align-items:start}h1{font-size:23px}.metrics{gap:8px}.metrics article{padding:16px}.panel{padding:16px}.filters{flex-wrap:wrap}.filters input{flex-basis:100%}.filters select{max-width:100%;flex:1}.sectionhead{align-items:start}th:nth-child(3){width:130px}table{min-width:800px}}
+
+.formats{display:inline-block;margin-left:14px;color:#728783;font-size:12px}.legend{display:flex;gap:18px;margin-top:12px;color:#6e8388;font-size:12px}.legend span{display:flex;align-items:center;gap:6px}.swatch{display:inline-block;width:9px;height:9px;border-radius:2px}.swatch.all{background:#6ab5a4}.swatch.bad{background:#d69b65}#status:empty,#count:empty,.metrics small:empty{display:none}#reason:empty{display:none}
+
+.businessTabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0}.businessTabs .selected{background:#197c70;color:white;border-color:#197c70}.businessSummary{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}.businessSummary>div{background:#f4f7f5;border-radius:8px;padding:16px;min-width:0}.businessSummary span{font-size:12px;color:#728783}.summaryvalue{font-size:12px;margin-top:10px;overflow-wrap:anywhere}.businessSummary b{display:block;margin-top:10px}.businessFilters{display:flex;gap:8px}.businessFilters input,.businessFilters select{min-width:0;padding:9px;border:1px solid #dbe5e1;border-radius:6px;background:white;color:#355254}.environment{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}.environment:empty{display:none}.environment span{background:#edf3ef;color:#52766d;padding:6px 10px;border-radius:5px;font-size:11px;overflow-wrap:anywhere}.businessTable th:nth-child(2){width:180px}.businessTable th:nth-child(3){width:90px}.businessTable th:nth-child(4){width:150px}.businessTable th:nth-child(5){width:auto}.businessbad{color:#ae642b}.businessFields{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:16px}.businessFields:empty{display:none}.businessFields>div{display:flex;gap:12px;font-size:12px;background:#f0f5f2;padding:10px;border-radius:5px;overflow-wrap:anywhere}.businessFields span{color:#728783;flex-shrink:0}.businessFields strong{font-weight:500;min-width:0}@media(max-width:700px){.businessSummary{grid-template-columns:1fr}.businessFilters{flex-wrap:wrap;max-width:65%}.businessFilters input{width:100%}.businessFields{grid-template-columns:1fr}}
+#coverage{padding:14px;background:#edf5ef;border-radius:8px;color:#355b50}#analysisSummary p{color:#31575a}#issueCards{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}#issueCards article{border:1px solid #e2e8df;border-left:3px solid #d69b65;border-radius:8px;padding:16px;min-width:0}#issueCards h3{margin:0;font-size:15px}#issueCards p{overflow-wrap:anywhere;font-size:12px}#issueCards details{background:#f5f8f6}#issueCards button{display:block;margin-top:8px;white-space:normal;overflow-wrap:anywhere;text-align:left;max-width:100%}.timeControls{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.timeControls input,.timeControls select{font:inherit;padding:9px;border:1px solid #dbe5e1;border-radius:6px}#issueGroupCount{font-size:12px;color:#6e8388}@media(max-width:700px){#business>.sectionhead{flex-wrap:wrap}.timeControls input{max-width:100%}}
+#processList{display:grid;gap:14px}#processList article{border:1px solid #dce5df;border-radius:8px;padding:18px}#processList article p{overflow-wrap:anywhere}#processList h3{margin:0}.comparisonColumns{display:grid;grid-template-columns:1fr 1fr;gap:18px}.comparisonColumns>div{min-width:0;background:#f4f8f5;padding:16px}.comparisonColumns button,#processList details button{display:block;text-align:left;white-space:normal;max-width:100%;margin:8px 0}#processList details{margin-top:12px;background:#f4f8f5}textarea{display:block;width:100%;min-height:100px;margin-top:10px;font:inherit;padding:12px;border:1px solid #cbdcd3;border-radius:6px}#processType{padding:10px;border:1px solid #cbdcd3;border-radius:6px}#scene{max-width:100%}#summaryEnvironment{font-size:12px}#requestQuality{padding:12px;background:#f4f7f5}nav{gap:3px;margin-top:30px}#business>.sectionhead{flex-wrap:wrap}header button{white-space:normal}@media(max-width:700px){.comparisonColumns{grid-template-columns:1fr}.sectionhead{flex-wrap:wrap}#issueCards{grid-template-columns:1fr}#processList article{padding:12px}}
+/* Progressive disclosure: only import and a short list of leads are visible initially. */
+[hidden]{display:none!important}.focusedLayout{background:#f4f7f5}.focusedLayout main{margin:0 auto;max-width:1080px;padding:42px 32px}.wordmark{font-size:21px;font-weight:700;color:#176b5f}.wordmark span{font-size:11px;font-weight:400;margin-left:12px;color:#748a83;background:#e5eee8;padding:4px 8px;border-radius:20px}.simpleHeader{margin-bottom:28px}.simpleHeader h1{font-size:30px;letter-spacing:0;margin:22px 0 8px}.simpleHeader p{margin:0}.uploadPanel{background:white;border:1px solid #dce6df;border-radius:14px;padding:22px;margin-bottom:24px}.uploadPanel .drop{margin:0;padding:22px;background:#f4f9f6}.uploadPanel #status{padding:10px 0 0}.quickCoverage{display:flex;align-items:flex-start;gap:14px;margin:16px 0 0;padding:14px 16px;border:1px solid rgba(104,174,154,.3);border-left:4px solid #4da98f;border-radius:10px;background:rgba(235,248,241,.72);line-height:1.6}.quickCoverage>span{flex:none;font-size:11px;font-weight:800;letter-spacing:.08em;color:#287866;text-transform:uppercase}.quickCoverage p{margin:0;color:#426a62;font-size:13px}.uploadPanel details{padding:12px 0 0;font-size:12px}.focusResults{margin:32px 0}.focusResults h2{font-size:22px}#issueGroupCount{display:block;margin:10px 0 18px}.focusedLayout #issueCards{grid-template-columns:1fr;gap:14px}.focusedLayout #issueCards article{background:white;border:1px solid #dce6df;border-radius:12px;padding:24px}.focusedLayout #issueCards h3{font-size:18px;margin:0 0 6px}.focusedLayout #issueCards p{font-size:14px;margin:10px 0 18px}.focusedLayout #issueCards p.issueMeta{font-size:12px;color:#7a8c85;margin:0 0 12px}.focusedLayout #issueCards .actions button{display:inline-block;margin:0;width:auto;font-size:13px}.moreIssues{display:block;margin:18px auto 0;background:transparent}.advanced{margin-top:32px;padding:0;background:transparent;border-top:1px solid #d9e3dc;border-radius:0}.advanced>summary{padding:22px 0;cursor:pointer;color:#46665a}.advanced>summary span{font-weight:650}.advanced>summary small{font-size:12px;margin-left:12px;color:#7b8d83}.advancedContent{padding-top:4px}.advancedIntro{font-size:12px}.advancedGroup{padding:0;margin:12px 0;border:1px solid #dce6df;border-radius:10px;overflow:hidden}.advancedGroup>summary{padding:18px;cursor:pointer;font-weight:600}.advancedGroup>.panel{border:0;margin:0;border-radius:0}.advancedGroup>.metrics{margin:0;padding:16px;gap:10px}.advancedGroup>p{padding:0 20px 16px;font-size:12px}.scopeNotice{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-radius:8px;background:#fff3da;color:#785924;font-size:12px}.scopeNotice button{font-size:12px;padding:7px 10px}.localFootnote{text-align:center;font-size:11px;color:#81958b;margin:30px 0 0}summary:focus-visible{outline:2px solid #139e86;outline-offset:-3px}#issueDialog{width:min(820px,94vw)}#issueDialog h3{font-size:15px;margin-top:26px}#issueDialog .finding{padding:14px;background:#eef5ef;border-radius:8px;color:#355c4d}#issueFlow>div{display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid #e5ece7;padding:12px 0;font-size:12px}#issueFlow button{font-size:12px;padding:7px 10px}#issueFlowCount,#issueAssociation{font-size:12px}#issueNotes{background:#f5f8f5;margin-top:22px}#issueNotes summary{cursor:pointer}#issueNotes label{display:block;margin-top:14px;font-size:12px}.issueReportAction{margin-top:18px;display:flex;align-items:center;justify-content:space-between;gap:12px}.issueReportAction p{font-size:12px}@media(max-width:700px){.focusedLayout main{padding:24px 14px}.simpleHeader h1{font-size:25px}.uploadPanel{padding:14px}.uploadPanel .drop{padding:18px}.focusedLayout #issueCards article{padding:18px}.advanced>summary small{display:block;margin:7px 0 0 18px}.scopeNotice,.issueReportAction{align-items:flex-start;flex-direction:column}#issueFlow>div{align-items:flex-start}.advancedGroup>.metrics{grid-template-columns:repeat(2,1fr)}#issueDialog{padding:18px}}
+/* Severity always reflects the source level, never an inferred business outcome. */
+.logLevel{display:inline-flex;align-items:center;justify-content:center;flex:none;gap:4px;min-width:76px;padding:5px 8px;border-radius:5px;font-size:12px;font-weight:700;line-height:1.4;white-space:nowrap;border:1px solid transparent;vertical-align:middle}.logLevel.level-D{color:#535b69;background:#eef0f4;border-color:#d5dae2}.logLevel.level-I{color:#195b9b;background:#eaf3ff;border-color:#bfd7f4}.logLevel.level-W{color:#865300;background:#fff4d6;border-color:#edce7a}.logLevel.level-E{color:#b0252c;background:#ffebed;border-color:#efb8bf}.logLevel.level-OTHER{color:#695283;background:#f2edf8;border-color:#d6c9e6}tr.logRow.level-E{background:#fff8f8}tr.logRow.level-W{background:#fffcf2}.logRow.level-E:hover{background:#ffedef}.logRow.level-W:hover{background:#fff5da}#events th:nth-child(2){width:120px}.businessTable th:nth-child(2){width:120px}.businessTable th:nth-child(3){width:170px}.businessTable th:nth-child(4){width:90px}.businessTable th:nth-child(5){width:140px}.businessTable th:nth-child(6){width:auto}.businessTable{min-width:940px}.levelEntry .logLevel{margin-right:10px}.logEntryText{white-space:normal;overflow-wrap:anywhere}.detailLevel{margin-top:18px}#issueFlow>div>span:not(.logLevel){flex:1;min-width:0}#issueFlow>div>button{flex:none}@media(max-width:700px){#issueFlow>div{flex-wrap:wrap;gap:8px}#issueFlow>div>span:not(.logLevel){flex-basis:65%}.levelEntry .logLevel{margin-bottom:4px}}
+.focusedLayout #issueCards p.issueExcerpt{padding:10px 12px;background:#f5f7f6;border-radius:6px;color:#344e47;font-family:Consolas,monospace;font-size:12px;white-space:pre-wrap;overflow-wrap:anywhere;margin:12px 0}.focusedLayout #issueCards p.issueBasis{font-size:12px;color:#77644c;margin:8px 0}.focusedLayout #issueCards h3{overflow-wrap:anywhere}
+
+/* Strong visual hierarchy for the overview: conclusion first, evidence second. */
+.signalPanel{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:16px;row-gap:4px;align-items:center;margin:18px 0 12px;padding:20px 24px;border:1px solid #b9ddd0;border-left:5px solid #197c70;border-radius:12px;background:linear-gradient(110deg,#e9f6ef,#f7fbf8)}
+.signalLabel{grid-row:span 2;color:#176b5f;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.signalPanel strong{font-size:21px;line-height:1.3;color:#173f43}.signalPanel span{font-size:12px;color:#68817a}.metricPrimary{border-color:#a7d4c7!important;background:#fbfffd!important}.metricPrimary b{color:#123f45}.metricAlert{border-color:#e8c19f!important;background:#fffaf4!important}.metricAlert b{color:#b85f2f!important}.metrics article{min-height:142px;display:flex;flex-direction:column;justify-content:space-between}.metrics article b{font-variant-numeric:tabular-nums;margin:8px 0 auto}.metrics article small{margin-top:12px}.panelFootnote{font-size:11px!important;color:#82958c!important;margin-top:18px!important}.overviewGrid #insights>p:not(#coverage):not(#requestQuality){margin:14px 0}.overviewGrid #coverage{font-weight:600;color:#285d52!important;background:#edf7f0;border-left:3px solid #63ae96;padding:12px 14px;border-radius:6px}.overviewGrid #requestQuality{border-left:3px solid #d8a065!important;background:#fff8ed!important;color:#765d3b!important}.overviewGrid #analysisSummary{display:grid;gap:8px;margin-top:14px}.overviewGrid #analysisSummary p{margin:0!important;padding:11px 13px;background:#f6f8f7;border-radius:6px;border-left:3px solid #d4e2dc;font-size:12px!important;line-height:1.55}.overviewGrid #analysisSummary p:nth-child(1){border-left-color:#197c70;background:#eef8f3;font-weight:600}.overviewGrid #analysisSummary p:nth-child(4){border-left-color:#d28a4e;background:#fff7ec}.overviewGrid #analysisSummary p:nth-child(5){color:#75877f!important;background:transparent;padding:4px 0;border-left:0;font-size:11px!important}
+@media(max-width:700px){.signalPanel{grid-template-columns:1fr;gap:6px;padding:16px}.signalLabel{grid-row:auto}.signalPanel strong{font-size:18px}.metrics article{min-height:120px}}
+
+/* Detail dialog: keep the identity of the selected log visible and prevent content reflow from feeling like a jump. */
+#detail{overflow:auto;scroll-behavior:auto}#detail .detailTop{position:sticky;top:-28px;z-index:4;margin:-28px -28px 18px;padding:28px 28px 14px;background:rgba(255,255,255,.98);border-bottom:1px solid #edf2ee}.detailMeta{display:flex;align-items:center;gap:14px;margin-top:14px;min-width:0}.detailMeta .detailLevel{margin:0;flex:none}.detailMeta #source{margin:0;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}.rawDetails{padding:0;background:transparent}.rawDetails summary{cursor:pointer;color:#46665a;font-size:13px;font-weight:650;margin:18px 0 10px}.rawDetails[open] summary{margin-bottom:10px}.rawDetails pre{margin:0}#detail #context{min-height:24px}#detail #context button{min-height:42px}
+@media(max-width:700px){#detail .detailTop{top:-18px;margin:-18px -18px 14px;padding:18px 18px 12px}.detailMeta{align-items:flex-start;flex-direction:column;gap:8px}.detailMeta #source{white-space:normal}.rawDetails pre{max-height:30vh}}
+
+/* Horizontal views keep overview first and prevent one long stacked page. */
+.focusedLayout main{max-width:1440px;padding-top:28px}.simpleHeader{margin-bottom:20px}.simpleHeader h1{font-size:27px;margin:12px 0 6px}.uploadPanel{padding:16px;margin-bottom:18px}.uploadPanel .drop{padding:16px}.analysisTabs{display:flex;gap:6px;overflow-x:auto;border-bottom:1px solid #ceddd4;margin:22px 0 24px;padding-bottom:0}.analysisTabs button{flex:none;border:0;border-bottom:3px solid transparent;border-radius:7px 7px 0 0;padding:14px 22px;background:transparent;font-weight:600;color:#6d8277}.analysisTabs button[aria-selected=true]{color:#146e5e;border-bottom-color:#197c70;background:#e5f0e9}.analysisTabs button:hover{background:#edf4ef}.viewHeading{display:flex;justify-content:space-between;gap:18px;align-items:center}.viewHeading h2{font-size:22px}.viewHeading p{margin:8px 0;font-size:13px}.scopeCaption{font-size:12px;color:#75887d}.overviewGrid{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;align-items:start}.overviewGrid .panel{min-width:0}.overviewGrid #timeline .sectionhead{flex-wrap:wrap}.overviewGrid #analysisSummary p{font-size:13px}.overviewGrid #coverage,.overviewGrid #requestQuality{font-size:12px}.overviewGrid #chart{height:220px}#panel-issues .focusResults{margin:0}#panel-issues #issueCards{grid-template-columns:repeat(2,minmax(0,1fr))}#panel-issues #issueCards article{min-width:0}#panel-business .advancedGroup{background:white}#panel-report .panel{max-width:1100px;margin-inline:auto}[role=tabpanel]:focus-visible{outline:2px solid #139e86;outline-offset:6px}@media(max-width:1000px){.overviewGrid{grid-template-columns:1fr}#panel-issues #issueCards{grid-template-columns:1fr}}@media(max-width:700px){.focusedLayout main{padding:20px 12px}.analysisTabs{gap:0;margin-top:18px}.analysisTabs button{padding:12px 15px;font-size:13px}.viewHeading{align-items:flex-start;flex-direction:column}.overviewGrid{gap:0}.uploadPanel{padding:12px}.simpleHeader h1{font-size:24px}}
+/* Issue dialog hierarchy: lead with the conclusion and the key facts. */
+.issueSummary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:20px 0 14px}.issueSummary>div{padding:14px 15px;border:1px solid #f0b4b8;border-radius:8px;background:#fff7f7}.issueSummary span{display:block;color:#9a6368;font-size:11px;margin-bottom:7px}.issueSummary strong{display:block;color:#b0252c;font-size:17px;line-height:1.45;white-space:normal;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}.issueSummary>div:first-child{background:#fff0f1;border-color:#ef8d95}.issueSummary>div:first-child strong{font-size:28px}.focusedLayout #issueFinding{margin:0;padding:14px 16px;border-left:4px solid #d28a4e;background:#fff8ed;border-radius:6px;color:#765d3b;font-size:13px}.focusedLayout #issueRecovery{margin-top:10px;border-left:4px solid #197c70;background:#edf7f0;color:#285d52}.focusedLayout #issueDialog h3{font-size:16px;color:#173f43;margin-top:28px}@media(max-width:700px){.issueSummary{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.issueSummary>div:first-child strong{font-size:23px}.issueSummary strong{font-size:14px}.focusedLayout #issueFinding{font-size:12px}}
+/* Context is a readable log window centered on the selected error. */
+#detail #context{max-height:390px;overflow-y:auto;padding:6px 8px 6px 0;scroll-behavior:auto;border:1px solid #dce7e1;border-radius:10px;background:#f7faf8}#detail #context button{margin:0;border:0;border-bottom:1px solid #e2ebe6;border-radius:0;background:transparent;padding:12px 14px;color:#31575a}#detail #context button:last-child{border-bottom:0}#detail #context button:hover{background:#edf6f1}#detail #context button.currentContext{background:#fff0f1;box-shadow:inset 4px 0 #d32935;color:#7d2229;font-weight:650}#detail #context button.currentContext:hover{background:#ffe6e8}
+/* Stable evidence viewer: context owns its scroll position; rows never navigate. */
+#detail{height:90vh;max-height:90vh;width:min(1160px,96vw);padding:20px;overflow:hidden}
+#detail[open]{display:flex;flex-direction:column;gap:12px}
+#detail .detailTop{position:static;flex:none;margin:0;padding:0 0 12px;background:white}
+#detail .detailMeta{margin-top:8px}#detail .detailMeta #source{color:#415c63}
+#detail .detailEvidence{flex:none;max-height:28vh;overflow:auto;scrollbar-gutter:stable}
+#detail #businessFields{margin-top:8px;gap:6px}#detail #businessFields>div{padding:6px 10px}
+#detail .rawDetails summary{margin:8px 0}#detail #raw{max-height:16vh;padding:12px;margin:0}
+#detail .contextPane{display:flex;flex:1;flex-direction:column;min-height:0;gap:8px}
+#detail .contextPane h3{margin:0;font-size:17px}#detail #contextNotice{font-size:12px;margin:0;line-height:1.5}
+#detail #context{position:relative;flex:1;min-height:0;max-height:none;overflow:auto;overflow-anchor:none;scrollbar-gutter:stable;padding:0;background:#fff;border:1px solid #c5d4d0;overscroll-behavior:contain}
+#detail #context .contextRow{padding:12px 16px;border-bottom:1px solid #e1e8e5;font-size:12px;line-height:1.65;cursor:text;user-select:text;overflow-wrap:anywhere}
+#detail #context .logEntryText{white-space:pre-wrap;font-family:Consolas,"Microsoft YaHei",monospace}
+#detail #context .currentContext{background:#fff2dc;box-shadow:inset 4px 0 #b66a09;color:#422c12}
+#detail #context:focus-visible{outline:2px solid #197c70;outline-offset:2px}
+@media(max-width:700px){#detail{padding:12px;height:96dvh;max-height:96dvh}#detail .detailTop{margin:0;padding:0 0 8px}#detail .detailMeta{flex-direction:row;align-items:center}#detail .detailMeta #source{white-space:nowrap}#detail .detailEvidence{max-height:23vh}#detail .timeControls{gap:6px}#detail .timeControls select{max-width:100%;padding:6px;font-size:12px}}
+
+/* Premium glass layer */
+:root{--ink:#132f36;--muted:#6b8585;--teal:#117d70;--teal-deep:#0b514d;--line:rgba(145,181,171,.27);--glass:rgba(255,255,255,.68);--glass-strong:rgba(255,255,255,.82);--shadow:0 18px 50px rgba(31,82,76,.10)}
+html{background:#edf5f2}
+body.focusedLayout{position:relative;min-height:100vh;overflow-x:hidden;background:radial-gradient(circle at 8% 2%,rgba(176,226,211,.46),transparent 30%),radial-gradient(circle at 95% 16%,rgba(228,217,255,.38),transparent 27%),linear-gradient(145deg,#f4faf8 0%,#eaf4f2 52%,#f7f7fb 100%);color:var(--ink)}
+body.focusedLayout::before,body.focusedLayout::after{content:"";position:fixed;z-index:-1;width:420px;height:420px;border-radius:50%;filter:blur(4px);opacity:.42;pointer-events:none;animation:ambientFloat 18s ease-in-out infinite alternate}
+body.focusedLayout::before{top:12%;right:-150px;background:radial-gradient(circle,rgba(183,163,255,.26),transparent 68%)}
+body.focusedLayout::after{bottom:-180px;left:-100px;background:radial-gradient(circle,rgba(85,201,177,.22),transparent 68%);animation-delay:-7s}
+.focusedLayout main{position:relative;z-index:0;padding-top:38px}
+.simpleHeader{padding:8px 4px 0}.wordmark{letter-spacing:-.02em;text-shadow:0 1px 0 rgba(255,255,255,.8)}
+.simpleHeader h1{font-size:clamp(28px,3.3vw,42px);letter-spacing:-.045em;color:#103c42}.simpleHeader p{font-size:14px;color:#67817f}
+.uploadPanel,.panel,.metrics article,.advancedGroup,.focusResults #issueCards article,.scopeNotice,.signalPanel{background:var(--glass);border:1px solid var(--line);box-shadow:var(--shadow);backdrop-filter:blur(22px) saturate(125%);-webkit-backdrop-filter:blur(22px) saturate(125%)}
+.uploadPanel{border-radius:22px;padding:20px}.uploadPanel .drop{border:1px solid rgba(122,177,161,.34);border-radius:16px;background:linear-gradient(135deg,rgba(244,255,250,.82),rgba(226,243,239,.54));box-shadow:inset 0 1px 0 rgba(255,255,255,.75);transition:transform .25s ease,box-shadow .25s ease,background .25s ease}.uploadPanel .drop:hover,.uploadPanel .drop.over{transform:translateY(-2px);background:linear-gradient(135deg,rgba(252,255,254,.9),rgba(207,237,229,.68));box-shadow:0 12px 30px rgba(43,128,111,.12)}
+button,.button{border-color:rgba(124,165,157,.34);background:rgba(255,255,255,.68);box-shadow:0 3px 10px rgba(31,82,76,.05);transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease}button:hover,.button:hover{transform:translateY(-1px);background:rgba(255,255,255,.9);border-color:rgba(44,133,115,.42);box-shadow:0 8px 18px rgba(31,82,76,.11)}button:active,.button:active{transform:translateY(0) scale(.98)}button.primary,.button.primary{background:linear-gradient(135deg,#168877,#0e6d65);border-color:transparent;box-shadow:0 8px 20px rgba(17,125,112,.23)}button.primary:hover,.button.primary:hover{background:linear-gradient(135deg,#1b9885,#0d7169);box-shadow:0 11px 25px rgba(17,125,112,.31)}
+.analysisTabs{border-bottom-color:rgba(120,164,154,.3);padding-left:6px;gap:8px}.analysisTabs button{position:relative;border:0;border-radius:13px 13px 0 0;color:#718b88;padding:14px 20px;transition:color .2s ease,background .2s ease,transform .2s ease}.analysisTabs button:hover{transform:translateY(-2px);background:rgba(255,255,255,.45)}.analysisTabs button[aria-selected=true]{color:#0d6f63;background:rgba(255,255,255,.66);box-shadow:0 -4px 18px rgba(43,111,99,.06)}
+.analysisTabs button[aria-selected=true]::after{content:"";position:absolute;left:20px;right:20px;bottom:-1px;height:3px;border-radius:99px;background:linear-gradient(90deg,#1ca88a,#6bcdb4)}
+.signalPanel{border-left:0;position:relative;overflow:hidden;padding:22px 26px;border-color:rgba(107,185,159,.42);background:linear-gradient(115deg,rgba(231,250,242,.82),rgba(255,255,255,.55))}.signalPanel::after{content:"";position:absolute;right:-30px;top:-60px;width:180px;height:180px;border-radius:50%;background:rgba(77,190,158,.13);filter:blur(2px)}.signalLabel{position:relative;z-index:1}.signalPanel strong,.signalPanel span{position:relative;z-index:1}.signalPanel strong{font-size:22px;letter-spacing:-.02em}
+.metrics{gap:14px;margin-top:16px}.metrics article{position:relative;overflow:hidden;border-radius:18px;padding:20px 21px;min-height:154px;transition:transform .25s ease,box-shadow .25s ease}.metrics article::after{content:"";position:absolute;inset:auto -26px -52px auto;width:130px;height:130px;border-radius:50%;background:rgba(118,207,182,.10)}.metrics article:hover{transform:translateY(-4px);box-shadow:0 22px 45px rgba(31,82,76,.15)}.metricPrimary{background:linear-gradient(145deg,rgba(248,255,252,.9),rgba(220,247,238,.62))!important}.metricAlert{background:linear-gradient(145deg,rgba(255,252,247,.9),rgba(255,240,220,.62))!important}.metrics article b{font-size:39px;letter-spacing:-.05em}.metrics article span{font-weight:600;letter-spacing:.02em}
+.overviewGrid{gap:18px}.panel{border-radius:18px;padding:22px}.panel h2{color:#173f45;letter-spacing:-.02em}.overviewGrid #chart{height:232px;background:linear-gradient(180deg,rgba(246,253,250,.3),rgba(223,241,235,.26));border-radius:12px;padding:10px 8px 0}.bar{transition:filter .2s ease,transform .2s ease}.bar:hover,.bar.active{transform:translateY(-3px);filter:saturate(1.18);outline:2px solid rgba(29,123,107,.55)}.bar .all{background:linear-gradient(180deg,#73c9b4,#419f8f)}.bar .bad{background:linear-gradient(180deg,#eab277,#ca7544)}
+.overviewGrid #insights{background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(235,248,242,.62))}.overviewGrid #analysisSummary p{box-shadow:0 4px 14px rgba(38,86,76,.04)}
+.filters input,.filters select,.businessFilters input,.businessFilters select,.timeControls input,.timeControls select,textarea,#processType{background:rgba(255,255,255,.62);border-color:rgba(124,165,157,.34);transition:border-color .2s ease,box-shadow .2s ease,background .2s ease}.filters input:focus,.filters select:focus,.businessFilters input:focus,.businessFilters select:focus,.timeControls input:focus,.timeControls select:focus,textarea:focus{outline:0;background:rgba(255,255,255,.9);border-color:#4ba994;box-shadow:0 0 0 4px rgba(67,174,147,.13)}
+table{border-spacing:0 5px;border-collapse:separate}thead th{background:rgba(233,244,239,.76);border-bottom:1px solid rgba(133,172,161,.22)}tbody tr[data-id]{transition:transform .18s ease,background .18s ease,box-shadow .18s ease}tbody tr[data-id]:hover{transform:translateX(3px);background:rgba(234,249,242,.86);box-shadow:0 5px 16px rgba(31,82,76,.08)}td{border-bottom-color:rgba(144,178,168,.18)}
+.focusedLayout #issueCards article{border-left:3px solid #d69b65;transition:transform .25s ease,box-shadow .25s ease}.focusedLayout #issueCards article:hover{transform:translateY(-3px);box-shadow:0 18px 35px rgba(73,81,62,.13)}
+dialog{background:rgba(249,253,251,.87);border-color:rgba(130,171,159,.38);box-shadow:0 30px 100px rgba(21,64,62,.25);backdrop-filter:blur(28px) saturate(130%);-webkit-backdrop-filter:blur(28px) saturate(130%)}dialog::backdrop{background:rgba(11,44,48,.48);backdrop-filter:blur(5px)}
+@keyframes ambientFloat{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(0,-24px,0) scale(1.06)}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media(max-width:700px){.uploadPanel,.panel{border-radius:16px}.metrics article{min-height:124px}.metrics article b{font-size:31px}.signalPanel{padding:17px 18px}.analysisTabs button{padding:12px 15px}.overviewGrid #chart{height:190px}}
+.evidenceSubtitle{margin:7px 0 0!important;color:#718985!important;font-size:12px!important}.evidenceSummary{display:grid;gap:14px;margin-top:18px}.evidenceLead{display:grid;gap:5px;padding:20px 22px;border:1px solid rgba(91,174,148,.38);border-left:4px solid #168877;border-radius:14px;background:linear-gradient(120deg,rgba(228,247,238,.9),rgba(255,255,255,.62));box-shadow:0 8px 22px rgba(40,100,82,.07)}.evidenceKicker,.evidenceSectionLabel{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#197c70}.evidenceLead strong{font-size:22px;line-height:1.3;color:#123f45}.evidenceLead p{margin:0;font-size:12px;color:#648078}.evidenceFacts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.evidenceFact{padding:15px 16px;border:1px solid rgba(145,181,171,.3);border-radius:11px;background:rgba(255,255,255,.65)}.evidenceFact>span{display:block;color:#6f8782;font-size:11px}.evidenceFact>strong{display:block;margin:6px 0 2px;color:#173f43;font-size:25px;font-variant-numeric:tabular-nums}.evidenceFact p{margin:0;color:#718782;font-size:11px;line-height:1.45}.evidenceBlock{padding:16px 17px;border:1px solid rgba(145,181,171,.3);border-radius:11px;background:rgba(255,255,255,.52)}.evidenceBlock h3{margin:0 0 12px;color:#31575a;font-size:13px}.evidenceRows{display:grid;gap:8px}.evidenceRows>div{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 10px;border-radius:7px;background:rgba(239,247,243,.8);font-size:12px}.evidenceRows strong{color:#1b6d60;font-variant-numeric:tabular-nums}.evidenceEmpty{margin:0;font-size:12px}.evidenceSignal{padding:12px 13px;border-left:3px solid #63ae96;border-radius:7px;background:#edf7f0;color:#285d52;font-size:12px}.evidenceSignalAlert{border-left-color:#d28a4e;background:#fff7ec;color:#765d3b}.evidenceSignal p{margin:0;color:inherit;font-size:12px}.evidenceSignal .evidenceHint{margin-top:5px;color:#8a765c;font-size:11px}.evidenceNotes{padding:0;background:transparent;border-top:1px solid rgba(145,181,171,.3);border-radius:0}.evidenceNotes summary{padding:12px 0 2px;cursor:pointer;color:#52766d;font-size:12px;font-weight:650}.evidenceNotes p{margin:9px 0 0;font-size:11px;color:#768983;line-height:1.55}.evidenceEnvironment{margin-top:16px;padding-top:14px;border-top:1px solid rgba(145,181,171,.24)}.evidenceEnvironment .environment{margin-top:9px}.evidenceEnvironment .environment:empty{display:none}@media(max-width:700px){.evidenceFacts{grid-template-columns:1fr}.evidenceLead{padding:17px}.evidenceLead strong{font-size:19px}}
+
+.requestBoardFilters{display:flex;gap:8px;align-items:center}.requestBoardFilters input,.requestBoardFilters select{padding:10px;border:1px solid rgba(124,165,157,.34);border-radius:8px;background:rgba(255,255,255,.72);color:#355254}.requestBoardFilters input{min-width:240px}.requestMetrics{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:22px 0 14px}.requestMetric{padding:16px;border:1px solid rgba(145,181,171,.3);border-radius:11px;background:rgba(255,255,255,.65)}.requestMetric span{display:block;color:#6f8782;font-size:11px}.requestMetric strong{display:block;margin-top:7px;color:#173f43;font-size:26px;font-variant-numeric:tabular-nums}.requestMetric.paired{border-top:3px solid #4da98f}.requestMetric.unmatched{border-top:3px solid #d69b65}.requestMetric.ambiguous{border-top:3px solid #bd7f9c}.requestMetric.latency{border-top:3px solid #6f9dc0}.requestNotice{padding:12px 14px;border-left:3px solid #d8a065;border-radius:7px;background:#fff8ed;color:#765d3b;font-size:12px}.requestRows{display:grid;gap:10px;margin-top:14px}.requestRow{padding:14px 16px;border:1px solid rgba(145,181,171,.3);border-radius:10px;background:rgba(255,255,255,.6)}.requestRow.ambiguous{border-left:4px solid #bd7f9c}.requestRow.unmatched{border-left:4px solid #d69b65}.requestRow.paired{border-left:4px solid #4da98f}.requestRowHead{display:flex;align-items:center;gap:10px;min-width:0}.requestRowHead strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#173f43}.requestRowHead time{margin-left:auto;flex:none;color:#748983;font-size:11px}.requestStatusBadge{flex:none;padding:4px 7px;border-radius:5px;background:#edf5f0;color:#287866;font-size:11px}.requestRow.unmatched .requestStatusBadge{background:#fff1e1;color:#9b642e}.requestRow.ambiguous .requestStatusBadge{background:#f7eaf1;color:#8e5670}.requestRowBody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 80px;gap:8px;margin-top:10px}.requestRowBody button{min-width:0;overflow:hidden;text-overflow:ellipsis;text-align:left;white-space:nowrap;font-size:12px;padding:9px 10px}.requestElapsed{align-self:center;text-align:right;color:#287866;font-size:12px;font-variant-numeric:tabular-nums}.requestRow.unmatched .requestElapsed,.requestRow.ambiguous .requestElapsed{color:#8b7765}@media(max-width:700px){.requestBoardFilters{width:100%;flex-wrap:wrap}.requestBoardFilters input{min-width:0;flex:1}.requestMetrics{grid-template-columns:repeat(2,1fr)}.requestRowHead{align-items:flex-start;flex-wrap:wrap}.requestRowHead time{margin-left:0;width:100%}.requestRowBody{grid-template-columns:1fr}.requestElapsed{text-align:left}}
+.requestBasis{flex:none;padding:3px 6px;border-radius:5px;background:#eef1fb;color:#6670a3;font-size:10px}
+
+
+/* AI diagnosis workspace */
+#desktopDiagnosis{padding:28px;background:rgba(255,255,255,.84)}
+#desktopDiagnosis .aiHeading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:20px}
+#desktopDiagnosis .aiHeading h2{font-size:22px;letter-spacing:-.4px}
+#desktopDiagnosis .aiHeading p{margin:7px 0 0;font-size:13px;max-width:740px}
+#desktopDiagnosis .aiPrivacy{font-size:11px;color:#758985;margin:12px 0 0;line-height:1.6}
+#desktopDiagnosis .aiSettings{padding:0;margin:0 0 24px;border:1px solid #dce8e3;border-radius:14px;background:#f8fbfa;overflow:hidden}
+#desktopDiagnosis summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:15px 18px;font-size:13px;font-weight:650;color:#365a58}
+#desktopDiagnosis summary::-webkit-details-marker{display:none}
+#desktopDiagnosis summary:before{content:'›';font-size:21px;line-height:16px;font-weight:400;color:#6e9388;transition:transform .15s}
+#desktopDiagnosis details[open]>summary:before{transform:rotate(90deg)}
+#desktopDiagnosis .aiConnectionState{margin-left:auto;border:1px solid #d5e5df;background:#edf5f1;border-radius:20px;padding:3px 10px;color:#567a6f;font-size:11px;font-weight:500}
+#desktopDiagnosis .aiSettingsGrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:18px;padding:5px 20px 18px}
+#desktopDiagnosis .aiField{display:flex;flex-direction:column;gap:8px;margin:0;color:#47655f;font-size:12px;font-weight:600}
+#desktopDiagnosis .aiField input{width:100%;min-width:0;max-width:none;height:42px;margin:0;padding:10px 12px;border:1px solid #ceded7;border-radius:8px;background:#fff;font:inherit;font-size:13px;font-weight:400;color:#203f3b;outline:none;box-shadow:0 1px 2px #163a2d04}
+#desktopDiagnosis .aiField input:focus,#desktopDiagnosis textarea:focus,#desktopDiagnosis select:focus{border-color:#268b78;box-shadow:0 0 0 3px #228a7515;outline:none}
+#desktopDiagnosis .aiSettingsFooter{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 20px 16px}
+#desktopDiagnosis .aiSettingsFooter p{margin:0;font-size:12px}
+#desktopDiagnosis button{margin:0;padding:9px 14px;border-radius:8px;font-size:12px;box-shadow:none;transition:background .15s}
+#desktopDiagnosis button.primary{background:#117d70;border-color:#117d70;color:white}
+#desktopDiagnosis button:disabled{opacity:.4}
+#desktopDiagnosis .aiWorkspace{display:grid;grid-template-columns:minmax(0,1fr) 270px;gap:24px;align-items:start}
+#desktopDiagnosis .aiMain{min-width:0}
+#desktopDiagnosis .aiSide{min-width:0;display:grid;gap:12px}
+#desktopDiagnosis .aiSideTitle{margin:0 0 2px;font-size:10px;letter-spacing:.12em;color:#83968f;font-weight:700}
+#desktopDiagnosis .aiSide details{padding:0;border:1px solid #e0e9e4;border-radius:12px;background:#f9fbfa;overflow:hidden}
+#desktopDiagnosis .aiSide summary{font-size:12px;padding:14px}
+#desktopDiagnosis .aiNoteBody,#desktopDiagnosis .aiProgress{padding:0 16px 14px;font-size:12px}
+#desktopDiagnosis .aiNoteBody:empty:after{content:'调查开始后，在这里查看已确认的观察和待验证的问题。';display:block;color:#8a9b94;font-size:12px;line-height:1.7}
+#desktopDiagnosis .aiProgress{margin:0;padding-left:32px;max-height:360px;overflow:auto;line-height:1.8;color:#687e74}
+#desktopDiagnosis .aiProgress:empty:after{content:'搜索、读取和对比等操作将在这里记录。';display:block;color:#8a9b94;font-size:12px}
+#desktopDiagnosis .aiIntro{padding:22px 0 28px}
+#desktopDiagnosis .aiIntro h3{font-size:23px;margin:0 0 10px;color:#224b43;letter-spacing:-.5px}
+#desktopDiagnosis .aiIntro p{margin:0;max-width:570px;font-size:13px;color:#7c9187;line-height:1.8}
+#desktopDiagnosis .aiComposer{border:1px solid #ccdfd5;border-radius:14px;background:#fff;box-shadow:0 5px 18px #234d3a05;overflow:hidden}
+#desktopDiagnosis .aiComposer label{display:block;margin:0;padding:16px 18px 0;font-size:12px;font-weight:650;color:#45675c}
+#desktopDiagnosis textarea{display:block;width:100%;min-height:136px;border:0;border-radius:0;margin:0;padding:12px 18px;font-size:14px;line-height:1.8;resize:vertical;background:transparent;box-sizing:border-box}
+#desktopDiagnosis textarea::placeholder{color:#9aaaA3}
+#desktopDiagnosis textarea:focus{box-shadow:none}
+#desktopDiagnosis .aiControls{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:12px 14px;border-top:1px solid #edf2ef;background:#fbfdfb}
+#desktopDiagnosis select{font:inherit;font-size:12px;color:#587569;max-width:100%;padding:9px 30px 9px 10px;background:#f0f6f2;border:1px solid #e2ebe5;border-radius:8px}
+#desktopDiagnosis .aiSendActions{display:flex;gap:8px;flex-wrap:wrap}
+#desktopDiagnosis .aiSecondaryActions{display:flex;align-items:center;gap:8px;margin:10px 0 0}
+#desktopDiagnosis .aiSecondaryActions button{border:0;background:transparent;color:#6c8779;padding:6px 10px}
+#desktopDiagnosis #aiStatus{font-size:12px;line-height:1.7;margin:12px 0 0;overflow-wrap:anywhere}
+#desktopDiagnosis #aiStatus:empty{display:none}
+#desktopDiagnosis .aiMessage{margin:0 0 14px;padding:16px 18px;border:1px solid #e0ebe4;border-radius:12px;background:#f5faf7;overflow-wrap:anywhere}
+#desktopDiagnosis .aiMessage strong{font-size:11px;color:#4c7e69}
+#desktopDiagnosis .aiMessage p{margin:8px 0 0;white-space:pre-wrap;font-size:13px;color:#3e5d50}
+#desktopDiagnosis #aiResult:not(:empty){margin:0 0 20px;padding:20px;border:1px solid #d5e5db;border-left:3px solid #138573;border-radius:12px;background:#f8fcf9;overflow-wrap:anywhere}
+#desktopDiagnosis #aiResult h3{margin:0;font-size:17px}
+#desktopDiagnosis #aiResult p{font-size:13px}
+#desktopDiagnosis .aiRefs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+#desktopDiagnosis .aiRefs button{padding:4px 8px;font-size:11px;background:#eaf4ef;border-color:#d2e3d9;color:#34755d}
+@media(max-width:1000px){#desktopDiagnosis .aiWorkspace{grid-template-columns:minmax(0,1fr)}#desktopDiagnosis .aiSide{grid-template-columns:1fr 1fr}#desktopDiagnosis .aiSideTitle{grid-column:1/-1}#desktopDiagnosis .aiSettingsGrid{grid-template-columns:1fr 1fr}#desktopDiagnosis .aiField:first-child{grid-column:1/-1}}
+@media(max-width:600px){#desktopDiagnosis{padding:18px}#desktopDiagnosis .aiSettingsGrid{grid-template-columns:1fr}#desktopDiagnosis .aiSide{grid-template-columns:1fr}#desktopDiagnosis .aiHeading{align-items:flex-start}#desktopDiagnosis .aiIntro h3{font-size:20px}#desktopDiagnosis .aiControls{align-items:stretch}#desktopDiagnosis select{width:100%}#desktopDiagnosis .aiSendActions{margin-left:auto}#desktopDiagnosis .aiSettingsFooter{align-items:flex-start;flex-direction:column}}
+
+
+/* Inline assistant runs: current work is never hidden in a disclosure. */
+#desktopDiagnosis .aiConversationLayout{display:block;max-width:1040px;margin:0 auto}
+#desktopDiagnosis #aiConversation{display:flex;flex-direction:column;gap:20px}
+#desktopDiagnosis #aiConversation:empty{display:none}
+#desktopDiagnosis .aiMessage{align-self:flex-end;width:fit-content;max-width:86%;margin:0;padding:14px 18px;background:#edf4f0;border:0;border-radius:16px 16px 4px 16px}
+#desktopDiagnosis .aiRun{padding:4px 0 22px;margin-bottom:4px;border-bottom:1px solid #e4ece7;min-width:0}
+#desktopDiagnosis .aiRunHeading{display:flex;align-items:center;gap:9px;font-size:13px;color:#36584b}
+#desktopDiagnosis .aiRunClock{font-size:11px;color:#91a096;margin-left:5px;font-variant-numeric:tabular-nums}
+#desktopDiagnosis .aiRunDot{height:8px;width:8px;flex:none;border-radius:50%;background:#5d9b80}
+#desktopDiagnosis .isRunning .aiRunDot{background:#168573;animation:aiRunPulse 1.6s ease-in-out infinite}
+#desktopDiagnosis .waiting .aiRunDot,#desktopDiagnosis .paused .aiRunDot{background:#bb914f}
+#desktopDiagnosis .failed .aiRunDot{background:#bb685a}
+#desktopDiagnosis .aiRunLatest{font-size:14px;color:#355747;line-height:1.8;margin:12px 0}
+#desktopDiagnosis .isRunning .aiRunLatest{color:#28745e}
+#desktopDiagnosis .aiRunRecent{padding-left:16px;border-left:2px solid #dfebe4;margin:10px 0}
+#desktopDiagnosis .aiRunRecent:empty{display:none}
+#desktopDiagnosis .aiRunRecent p{font-size:12px;color:#7b8e82;margin:5px 0;line-height:1.6}
+#desktopDiagnosis .aiRunRecent p:last-child{display:none}
+#desktopDiagnosis .aiRunHistory,#desktopDiagnosis .aiRunNotes{padding:0;margin:10px 0;background:transparent;border:0}
+#desktopDiagnosis .aiRunHistory summary,#desktopDiagnosis .aiRunNotes summary{font-size:12px;padding:7px 0;color:#7a8d80;font-weight:500}
+#desktopDiagnosis .aiRunHistory .aiProgress{font-size:12px;padding:5px 12px 5px 28px;max-height:260px;overflow:auto;color:#7a8d80;line-height:1.9}
+#desktopDiagnosis .aiRunNotes .aiNoteBody{padding:10px 16px;border:1px solid #e1eae4;border-radius:10px;background:#f8fbf9;font-size:12px}
+#desktopDiagnosis .aiRunNotes h4{font-size:12px;margin:8px 0}
+#desktopDiagnosis .aiRunMeta{font-size:11px;color:#94a196;margin:12px 0 0}
+#desktopDiagnosis .aiRunMeta:empty{display:none}
+#desktopDiagnosis .aiRun #aiResult{margin:12px 0 0}
+#desktopDiagnosis .aiComposer{margin-top:22px}
+#desktopDiagnosis .aiComposer textarea{min-height:100px}
+@keyframes aiRunPulse{0%,100%{box-shadow:0 0 0 0 #16857320;opacity:1}50%{box-shadow:0 0 0 5px #16857310;opacity:.5}}
+@media(prefers-reduced-motion:reduce){#desktopDiagnosis .isRunning .aiRunDot{animation:none}}
+@media(max-width:600px){#desktopDiagnosis .aiMessage{max-width:94%}}
+</style></head>
+<body class="focusedLayout">
+<main>
+<header class="simpleHeader"><div><div class="wordmark">◈ LogLens <span>本地分析</span></div><h1>App 日志分析</h1><p>先看统计概览，再按需要切换分析视图。</p></div></header>
+<section class="uploadPanel"><div id="drop" class="drop"><div><strong>导入 App 日志</strong><p>拖入文件，也可以选择整个日志文件夹。</p></div><div class="actions"><label class="button primary">选择日志<input id="files" type="file" multiple accept=".log,.txt,.zip"></label><label class="button">选择文件夹<input id="folder" type="file" multiple webkitdirectory></label><button id="demo">试用示例</button></div></div><div id="status" role="status" aria-live="polite"></div><progress id="progress" hidden></progress><div class="quickCoverage"><span>导入覆盖</span><p id="quickCoverage"></p></div><details id="imports" hidden><summary>查看导入明细</summary><div id="filelist"></div></details></section>
+<div id="focusScope" class="scopeNotice" hidden><span id="scopeLabel"></span><button id="resetFocus">恢复全部日志</button></div>
+<div class="analysisTabs" role="tablist" aria-label="日志分析视图">
+<button id="tab-summary" role="tab" aria-controls="panel-summary" aria-selected="true">统计概览</button>
+<button id="tab-ai" role="tab" aria-controls="panel-ai" aria-selected="false" tabindex="-1">AI 日志诊断</button>
+<button id="tab-logs" role="tab" aria-controls="panel-logs" aria-selected="false" tabindex="-1">日志检索</button>
+<button id="tab-business" role="tab" aria-controls="panel-business" aria-selected="false" tabindex="-1">业务分析</button>
+<button id="tab-requests" role="tab" aria-controls="panel-requests" aria-selected="false" tabindex="-1">请求看板</button>
+<button id="tab-report" role="tab" aria-controls="panel-report" aria-selected="false" tabindex="-1">排查报告</button>
+<button id="tab-issues" role="tab" aria-controls="panel-issues" aria-selected="false" tabindex="-1">异常记录</button>
+</div>
+<div id="panel-summary" role="tabpanel" aria-labelledby="tab-summary" tabindex="0"><div class="viewHeading"><div><p class="eyebrow">LOG OVERVIEW</p><h2>统计概览</h2><p>先看结论，再展开时间分布和证据。</p></div><div class="actions"><button id="goIssues" class="primary">查看疑似异常</button><button id="goLogs">检索日志</button></div></div><section class="signalPanel" aria-live="polite"><div class="signalLabel">当前判断</div><strong id="signalHeadline">导入日志后生成摘要</strong><span id="signalMeta">先导入日志，系统会把最重要的变化放在这里。</span></section><div class="scopeRow"><p class="scopeCaption">顶部指标与时间分布统计整次导入；摘要、异常分组跟随全局筛选。每个有效日志头计 1 条，多行消息仍计 1 条。</p><label class="anomalyRule">疑似异常判断 <select id="anomalyMode" aria-label="疑似异常判断"><option value="level">仅按日志等级（Error）</option><option value="content">日志等级 + 内容语义</option></select></label></div><section id="overview" class="metrics"><article class="metricPrimary"><span>解析日志</span><b id="total">—</b><small id="range"></small></article><article class="metricAlert"><span>疑似异常日志</span><b id="issues">—</b><small>规则筛选，需人工确认</small></article><article><span>涉及模块</span><b id="modules">—</b></article><article><span>已配对请求</span><b id="requests">—</b><small id="latency"></small></article></section><div class="overviewGrid"><section id="timeline" class="panel"><div class="sectionhead"><div><h2>日志时间分布</h2><div class="legend"><span><i class="swatch all"></i>全部日志</span><span><i class="swatch bad"></i>疑似异常</span></div></div><button id="resetTime">清除时间筛选</button></div><div id="chart" class="chart"><div class="empty">暂无数据</div></div><div class="axis"><span id="startLabel">—</span><span id="endLabel">—</span></div></section><section class="panel" id="insights"><div class="sectionhead"><div><p class="eyebrow">EVIDENCE</p><h2>证据摘要</h2><p class="evidenceSubtitle">先看判断，再看证据范围和异常信号。</p></div></div><div id="analysisSummary" class="evidenceSummary" aria-live="polite"></div><div class="evidenceEnvironment"><span class="evidenceSectionLabel">运行环境</span><div id="summaryEnvironment" class="environment"></div></div><p id="coverage" hidden></p><p id="requestQuality" hidden></p><p class="panelFootnote">摘要与疑似异常卡片跟随全局筛选；业务表筛选仅影响业务表。原文 JSON 含敏感信息，共享前请检查。</p></section></div></div>
+<div id="panel-ai" role="tabpanel" aria-labelledby="tab-ai" tabindex="0" hidden><section class="panel"><h2>AI 日志诊断</h2><p>请在 LogLens 桌面版中使用 AI 诊断。本浏览器版仍可独立进行本地日志分析。</p></section></div>
+<div id="panel-issues" role="tabpanel" aria-labelledby="tab-issues" tabindex="0" hidden><p id="issuesEmpty" class="empty">先导入日志，再查看异常记录。</p><section id="focusResults" class="focusResults" hidden aria-live="polite"><div class="sectionhead"><h2 id="focusTitle">② 看值得关注的线索</h2></div><p id="issueGroupCount"></p><div id="issueCards"></div><button id="moreIssues" class="moreIssues" hidden>查看更多线索</button></section></div>
+<div id="panel-logs" role="tabpanel" aria-labelledby="tab-logs" tabindex="0" hidden><section class="panel"><h2>从问题时间开始</h2><div class="filters"><label>排查场景 <select id="scene"><option value="">全部业务</option><option value="auth">登录 / 验证码</option><option value="provision">觅睿配网</option><option value="bluetooth">蓝牙连接</option><option value="mqtt">消息 / 状态同步</option><option value="rn">页面 / 资源加载</option><option value="pump">吸奶器状态</option></select></label></div><p>填写日志中的时间（不自动转换时区）。定位时会清除其他筛选。</p><div class="timeControls"><label>问题发生时间 <input id="problemTime" type="datetime-local" step="1"></label><label>前后范围 <select id="timeRadius"><option value="5">5 分钟</option><option value="15">15 分钟</option><option value="30">30 分钟</option><option value="60">1 小时</option></select></label><button id="locateTime">定位记录</button></div><p id="timeNotice" role="status"></p></section><section id="events" class="panel"><div class="sectionhead"><div><h2>日志浏览器</h2><button id="export" disabled>导出全局原文 JSON</button><p id="count"></p></div><button id="clear">重置筛选</button></div><div class="filters"><input id="search" placeholder="搜索消息、requestId、设备标识…" aria-label="搜索日志"><select id="module" aria-label="模块"><option value="">全部模块</option></select><select id="level" aria-label="级别"><option value="">全部级别</option><option value="D">D · 调试</option><option value="I">I · 信息</option><option value="W">W · 警告</option><option value="E">E · 错误</option><option value="OTHER">OTHER · 未知</option></select><select id="kind" aria-label="日志类型"><option value="">全部日志</option><option value="issue">疑似异常日志</option><option value="request">网络请求 / 响应</option><option value="device">设备 / 蓝牙</option><option value="lifecycle">生命周期</option><option value="rn">RN 加载</option><option value="other">其他类型</option></select></div><div id="timeFilter" class="timefilter"></div><div class="tablewrap"><table><thead><tr><th>时间</th><th>级别</th><th>模块</th><th>日志摘要</th><th>请求耗时</th></tr></thead><tbody id="rows"><tr><td colspan="5" class="empty">暂无日志</td></tr></tbody></table></div><footer><button id="prev">上一页</button><span id="page">0 / 0</span><button id="next">下一页</button></footer></section></div>
+<div id="panel-business" role="tabpanel" aria-labelledby="tab-business" tabindex="0" hidden><p class="scopeCaption">跟随全局筛选；下方业务记录的分类、结果、设备筛选只影响该表。</p><section id="business" class="panel"><div class="sectionhead"><h2>业务记录</h2><button id="exportBusiness" disabled>导出当前业务原文 JSON</button><div class="businessFilters"><input id="businessDevice" placeholder="设备名称 / ID" aria-label="筛选业务设备"><select id="businessOutcome" aria-label="业务结果"><option value="">全部结果</option><option value="success">成功</option><option value="fail">失败</option><option value="start">开始</option><option value="candidate">疑似异常</option><option value="skipped">跳过</option></select></div></div><div id="environment" class="environment"></div><div id="businessTabs" class="businessTabs"></div><div id="businessSummary" class="businessSummary"></div><div class="tablewrap"><table class="businessTable"><thead><tr><th>时间</th><th>日志等级</th><th>业务操作</th><th>结果</th><th>设备</th><th>业务字段</th></tr></thead><tbody id="businessRows"></tbody></table></div><footer><button id="businessPrev">上一页</button><span id="businessPage">0 / 0</span><button id="businessNext">下一页</button></footer></section><details class="advancedGroup"><summary>业务过程与对比</summary><section class="panel" id="processes"><div class="sectionhead"><h2>业务过程与相关记录</h2><select id="processType" aria-label="关联依据"><option value="">全部关联依据</option><option value="explicit">明确操作标识</option><option value="request">配对请求</option><option value="device">同设备可能相关</option><option value="unassigned">未归属记录</option></select></div><p id="processCount"></p><p>记录跨度不是实际操作耗时。同设备记录按 5 分钟空闲间隔拆组；缺少标识时不推断业务会话。</p><div id="processList"></div><footer><button id="processPrev">上一页</button><span id="processPage"></span><button id="processNext">下一页</button></footer><h3>过程对比</h3><div id="comparison"></div></section></details></div>
+<div id="panel-requests" role="tabpanel" aria-labelledby="tab-requests" tabindex="0" hidden><section class="panel requestBoard"><div class="viewHeading"><div><p class="eyebrow">REQUEST FLOW</p><h2>请求与响应</h2><p>默认显示 Cozyinnov 请求，可切换请求来源。</p></div><div class="requestBoardFilters"><select id="requestSource" aria-label="请求来源"><option value="cozy" selected>Cozyinnov 请求</option><option value="other">其他请求</option><option value="all">全部来源</option></select><select id="requestStatus" aria-label="请求关联状态"><option value="">全部状态</option><option value="paired">已配对</option><option value="unmatched">未配对</option><option value="ambiguous">冲突</option></select><input id="requestQuery" placeholder="搜索接口、请求标识或文件" aria-label="搜索请求"></div></div><div id="requestMetrics" class="requestMetrics"></div><div id="requestNotice" class="requestNotice"></div><div id="requestRows" class="requestRows"></div><footer><button id="requestPrev">上一页</button><span id="requestPage">0 / 0</span><button id="requestNext">下一页</button></footer></section></div>
+<div id="panel-report" role="tabpanel" aria-labelledby="tab-report" tabindex="0" hidden><section class="panel" id="reportNotes"><div class="sectionhead"><h2>补充问题现象</h2><button id="exportReport" disabled>导出全部筛选结果的报告</button></div><p>这些说明会进入排查报告。报告默认省略原文，标识在报告内稳定替换；共享前请检查自由文本。</p><div class="comparisonColumns"><label>实际现象<textarea id="actualBehavior" placeholder="例如：点击添加设备后一直停留在扫描页面"></textarea></label><label>预期行为<textarea id="expectedBehavior" placeholder="例如：应发现并显示附近设备"></textarea></label></div></section></div><p class="localFootnote">日志在本机处理，不上传。分析线索需要结合实际现象确认。</p></main>
+<dialog id="detail" aria-labelledby="detailTitle"><div class="detailTop"><div class="sectionhead"><h2 id="detailTitle">日志详情</h2><button id="close">关闭 ×</button></div><div class="detailMeta"><div id="detailLevel" class="detailLevel"></div><p id="source"></p></div></div><div class="detailEvidence"><div id="reason"></div><div id="businessFields" class="businessFields"></div><details class="rawDetails" open><summary>原始日志</summary><pre id="raw"></pre></details></div><section class="contextPane"><div class="sectionhead"><h3>附近日志</h3><button id="contextLocate">回到当前日志</button></div><div class="timeControls"><select id="contextMode" aria-label="上下文关联方式"><option value="file">当前文件附近日志</option><option value="time">全部时间邻近记录</option><option value="device">相同产品设备</option><option value="operation">相同操作标识</option><option value="request">配对请求与响应</option></select><select id="contextRadius" aria-label="上下文时间范围"><option value="5">前后 5 分钟</option><option value="15">前后 15 分钟</option><option value="60">前后 1 小时</option></select></div><p id="contextNotice"></p><div id="context" tabindex="0" role="region" aria-label="只读日志上下文"></div></section></dialog>
+<dialog id="issueDialog" aria-labelledby="issueTitle"><div class="sectionhead"><h2 id="issueTitle">相关过程</h2><button id="closeIssue">关闭</button></div><div class="issueSummary"><div><span>相似日志</span><strong id="issueCount">—</strong></div><div><span>首次出现</span><strong id="issueFirst">—</strong></div><div><span>最近出现</span><strong id="issueLast">—</strong></div><div><span>来源</span><strong id="issueSource">—</strong></div></div><p id="issueFinding"></p><p id="issueRecovery" class="finding"></p><h3>接下来可以查什么</h3><p id="issueNext"></p><h3>相关过程</h3><p id="issueAssociation"></p><div id="issueFlow"></div><p id="issueFlowCount"></p><details id="issueNotes"><summary>补充实际现象与预期（可选）</summary><label>实际现象<textarea id="issueActual" placeholder="用户看到了什么？"></textarea></label><label>预期行为<textarea id="issueExpected" placeholder="正常情况下应该发生什么？"></textarea></label></details><div class="issueReportAction"><p>仅导出此问题及关联证据，默认不含原始消息。</p><button id="exportIssue" class="primary">导出此问题报告</button></div></dialog>
+<script>/* Shared by the browser worker and parser tests. No network access. */
+function classifyAnomaly(e, mode='level') {
+  const contentIssue=/(?:\bfailed\b|\bfailure\b|\berror\s*:|结果\s*=\s*fail|失败|请求超时|连接超时|timed out|no_answer|ICE restart offer failed|business_timeout)/i.test(e.message||'');
+  if(e.business?.outcome==='candidate')e.business.outcome='';
+  e.issue=e.level==='E'||(mode==='content'&&(contentIssue||e.business?.outcome==='fail'));
+  e.reason=e.issue?(e.level==='E'?'日志标记为 Error。请结合上下文确认影响。':'消息或业务字段包含失败语义；当前使用“等级 + 内容”判断。'):'';
+  if(e.issue&&e.business&&!e.business.outcome)e.business.outcome='candidate';
+}
+function createParser(file, options={}) {
+  const anomalyMode=options.anomalyMode||'level';
+  let eventCount=0;
+  function readNetworkTarget(e) {
+    const line=e.message.split('\n',1)[0];
+    // Mapping a response envelope is a second local processing step.
+    if (/^\[Group\] mapped response\b/i.test(line)) return;
+    const failure=e.message.match(/\bNSErrorFailingURL(?:String)?Key\s*=\s*(https?:\/\/[^\s,}"<>]+)/i);
+    const target=failure || line.match(/\b(?:url|path|api)\s*[:=]\s*["']?(https?:\/\/[^\s"',}<>]+|\/api\/app\b[^\s"',}<>]*)/i)
+      || line.match(/(?:\b(?:GET|POST|PUT|PATCH|DELETE|HEAD|request|response)\s*[: ]\s*|^)(https?:\/\/[^\s"',}<>]+|\/api\/app\b[^\s"',}<>]*)/i);
+    if (!target) return;
+    const absolute=target[1].match(/^https?:\/\/([a-z0-9.-]+)(?::\d+)?(?=[/?#]|$)([^?#]*)/i);
+    if (!absolute && !target[1].startsWith('/api/app')) return;
+    const host=absolute?.[1].toLowerCase() || '';
+    const path=absolute ? absolute[2] || '/' : target[1].split(/[?#]/,1)[0];
+    let direction=e.direction;
+    if (failure || /\b(?:response|failed|code\s*[:=])\b/i.test(line) || e.module==='NetworkResponseHandler') direction='response';
+    else if (/\b(?:request|GET|POST|PATCH|PUT|DELETE|HEAD)\b/i.test(line)) direction='request';
+    else if (e.module==='BbmUiVersionSyncService' && /\b(?:status|add) url=/.test(line)) direction='response';
+    else if (!direction && /^\/api\/app(?:\/|$)/.test(path) && /^(?:\/api\/app\b|(?:path|api|url)\s*[:=])/i.test(line)) direction='request';
+    if (!direction) return;
+    e.direction=direction;
+    e.requestHost=host;
+    e.cozyRequest=host ? /(?:^|\.)cozyinnov\.com$/.test(host) : /^\/api\/app(?:\/|$)/.test(path);
+    if (!e.api || e.cozyRequest) e.api=path;
+    if (failure) e.networkError=true;
+  }
+  function business(e) {
+    const t=e.message;
+    const value=key=>(t.match(new RegExp('(?:^|[\\s,，{;])"?'+key+'"?\\s*[:=]\\s*(?:"([^"\\n]*)"|([^\\s,;，}]+))'))||[]).slice(1).find(v=>v!==undefined) || '';
+    const b={category:'',stage:'',outcome:'',device:'',fields:{}};
+    const add=(label,v)=>{if(v!==''&&v!==undefined)b.fields[label]=v;};
+    const stage=t.match(/阶段\s*=\s*([\w.-]+)/)?.[1];
+    // Prefer the emitting module. Payload mentions must not override its identity.
+    const moduleCategory=/^MeariProvision/.test(e.module)?'provision':
+      /^(?:IpcDeviceCellViewModel\+Session|FunIotLog|LTRTCLog|LTRTCPeerClient|LTRTCSession|BM08SDeviceManager|BBMPlaybackActor)/i.test(e.module)?'stream':
+      /^(?:PumpActivity|PumpFloating|TPumpLiveActivity|M5ProPumpPresentation|LTPumpM5ProIsland|LegacyPumpIsland|LTDevicesViewModel\+Pump)/.test(e.module)?'pump':
+      /Thing.*MQTT/i.test(e.location)?'mqtt':
+      /^(?:BTManager|BT\+|BLELiveActivityRecovery|Thing(?:Smart(?:OS)?BLE|BLE|Ble|AuthorizationBluetooth|ASActivatorBle)|BM08SBLE|BLEDeviceConnect|LTDevicesViewModel\+BLEScan)/.test(e.module)?'bluetooth':
+      /^(?:LT)?RN(?:Full|Ota|Reach|Bundle)/.test(e.module)?'rn':
+      /^(?:LoginCodeInput|CodeInputViewModel|VerifyCodeSendSession|AuthSessionEventLogger|NewFlowAuth|EmailOrPhoneInput|MeariAuthGate|IotKitProviderAuthService|AppTokenRenewalManager|PostLoginFlow)/.test(e.module)||/\b(?:setupGeetest|getEmailCode)\s*\(/.test(e.location)?'auth':'';
+    const tagCategory=/^\s*【觅睿】[^\n]*阶段\s*=/.test(t)?'provision':
+      /^\s*(?:\[IPC\]|\[LTRTC\]|\[BBMPlaybackActor\])/.test(t)||/(?:拉流|推流|停流|DataChannel|ICE restart|no_answer)/i.test(t)?'stream':
+      /^\s*(?:\[PUMP\]|\[LegacyPumpIsland\]|PumpActivity\b)/.test(t)?'pump':
+      /^\s*\[mqtt\]/i.test(t)?'mqtt':/^\s*\[BT\+?\]/.test(t)?'bluetooth':
+      /^\s*\[RN(?:FullRuntime|Reach|Ota[^\]]*|Bundle[^\]]*)?\]/.test(t)?'rn':
+      /^\s*\[AuthSession\]/.test(t)||/\b(?:setupGeetest|getEmailCode)\s*[:(]/.test(t)||/user\.uid\.(?:token|password)/.test(e.api)?'auth':'';
+    b.category=moduleCategory||tagCategory;
+    b.basis=moduleCategory?'来源模块':tagCategory?'明确消息标签或接口':'';
+    if(b.category==='provision'){
+      b.category='provision'; b.stage=stage||(/停止扫描/.test(t)?'stop_scan':/清除定时器/.test(t)?'clear_timer':'sdk_event');
+      b.outcome=t.match(/结果\s*=\s*([\w]+)/)?.[1]||'';
+      for(const [key,label] of [['diagnostic_code','诊断码'],['error_code','错误码'],['device_count','设备数']])add(label,value(key));
+    }else if(b.category==='pump'){
+      b.category='pump'; b.stage=t.match(/action[：:]\s*([^\s]+)/)?.[1]||'activity';
+      for(const [key,label] of [['reason','触发来源'],['devices','设备数'],['snapshots','快照数'],['active','浮窗激活'],['running','运行中'],['elapsed','计时值'],['ended','清理数']])add(label,value(key));
+    }else if(b.category==='mqtt'){
+      b.category='mqtt';
+      b.stage=/subscribe ack/i.test(t)?'subscribe_ack':/connect success time consuming/.test(t)?'connected':/start connect with host/.test(t)?'connect':/reconnect cancel/.test(t)?'reconnect_skipped':/reconnect/i.test(t)?'reconnect':/disconnect|connectionClosed/i.test(t)?'disconnected':/subscribe/i.test(t)?'subscribe':'transport';
+      b.outcome=b.stage==='connected'?'success':/subscribe ack.*suc:1/.test(t)?'success':/subscribe ack.*suc:0/.test(t)?'fail':'';
+      add('连接耗时 ms',t.match(/connect success time consuming\s*:\s*(\d+)/)?.[1]);
+      for(const [key,label] of [['host','主机'],['networkStatus','网络'],['totalTime','总耗时 ms'],['sslTime','SSL 耗时 ms'],['ackTime','ACK 耗时 ms']])add(label,value(key));
+    }else if(b.category==='stream'){
+      const pull=/拉流|preview|playback|播放|接收|下行/i.test(t);
+      const push=/推流|publish|上行|sendTrack|本地采集/i.test(t);
+      b.category='stream';
+      b.direction=push?'push':pull?'pull':'';
+      add('方向',b.direction==='push'?'推流':b.direction==='pull'?'拉流':'');
+      b.stage=/session create|初始化Session成功/i.test(t)?'session_create':
+        /session release|Session 已释放|释放.*Session/i.test(t)?'session_release':
+        /停止拉流|强制停流|teardownPreview|stopPreview/i.test(t)?'pull_stop':
+        /开始拉流|startPreview|start.*preview|拉流开始/i.test(t)?'pull_start':
+        /推流开始|start.*publish|publish.*start/i.test(t)?'push_start':
+        /推流停止|stop.*publish|publish.*stop/i.test(t)?'push_stop':
+        /DataChannel|data channel/i.test(t)?'data_channel':
+        /ICE restart|ice.*restart/i.test(t)?'ice_restart':
+        /connectError|didConnectError|no_answer|连接失败/i.test(t)?'connect_error':
+        /configurePlaybackActor|PlaybackActor/i.test(t)?'playback_config':
+        /初始化Session|bootstrapSession/i.test(t)?'session_init':'stream_event';
+      b.outcome=/no_answer|connectError|didConnectError|失败|failed|error/i.test(t)?'fail':
+        /成功|success|✅|connected/i.test(t)?'success':
+        /开始|create|初始化|start/i.test(t)?'start':
+        /停止|释放|结束|teardown|stop/i.test(t)?'stop':'';
+      const streamDevice=t.match(/\[ltrtc-([^\]\s]+)\]/i)?.[1]||t.match(/\b(?:dev|deviceId)\s*[=:]\s*([\w-]+)/i)?.[1]||'';
+      b.device=streamDevice;
+      for(const [key,label] of [['sid','会话标识'],['sessionId','会话标识'],['deviceId','设备标识'],['reason','原因'],['message','错误信息'],['sinceSDKStartMs','SDK耗时 ms'],['phaseElapsedMs','阶段耗时 ms'],['batchElapsedMs','批次耗时 ms'],['error','错误']])add(label,value(key));
+    }else if(b.category==='bluetooth'){
+      b.category='bluetooth';b.stage=/断开所有/.test(t)?'disconnect_all':/断开/.test(t)?'disconnect':/连接设备/.test(t)?'connect':/开始扫描/.test(t)?'scan_start':/停止扫描/.test(t)?'scan_stop':value('event')||'bluetooth_event';
+      b.device=t.match(/Optional\("([^"\n]+)"\)/)?.[1]||'';
+      for(const [key,label] of [['deviceType','设备类型'],['autoReconnect','自动重连'],['flag','开关'],['result','结果']])add(label,value(key));
+    }else if(b.category==='rn'){
+      b.category='rn';b.stage=/jsDidLoad elapsedMs/.test(t)?'js_loaded':/register.*assets failed/.test(t)?'assets_failed':/rn_ota_version_reach/.test(t)?'version_reach':/deniedByGate|gate deny/.test(t)?'gate_denied':/prepareIfNeeded/.test(t)?'prepare':'ota_event';
+      b.outcome=b.stage==='js_loaded'?'success':b.stage==='assets_failed'?'fail':b.stage==='gate_denied'?'skipped':'';
+      for(const [key,label] of [['elapsedMs','加载耗时 ms'],['ms','加载耗时 ms'],['embeddedVersion','内置版本'],['ver','资源版本'],['resId','资源'],['sessionMode','加载模式'],['size','大小 bytes'],['sticky','版本固定']])add(label,value(key));
+    }else if(b.category==='auth'){
+      b.stage=/getEmailCode/.test(e.location+' '+t)?'email_code':/setupGeetest/.test(e.location+' '+t)?'captcha_config':/token\.create/.test(e.api)?'token_create':/MeariAuthGate|IotKitProviderAuthService/.test(e.module)?'sdk_login':'login';
+      b.outcome=e.direction==='request'?'start':e.direction==='response'&&/\bsuccess\b/.test(t)?'success':'';
+    }
+    b.device=b.device||value('devId')||value('device_id');
+    // deviceId in SDK commonParams identifies the phone, not the connected product.
+    add('设备',b.device);add('阶段',stage);if(b.category)add('requestId',e.requestId);
+    e.operationId=value('operationId')||value('attemptId')||value('provisionId');
+    e.sessionId=value('sessionId')||value('sid');
+    e.business=b;
+    e.environment={};
+    for(const [key,label] of [['appVersion','App'],['osSystem','iOS'],['platform','机型'],['sdkVersion','SDK'],['analyticsEnvironment','埋点环境'],['plistRunEnvironment','运行环境']]){const v=value(key);if(v)e.environment[label]=v;}
+  }
+  const events = []; let current = null, line = 0, unmatched = 0, invalidHeaders = 0, blankLines = 0;
+  const header = /^\[(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(?:\.\d{1,3})?)\]\s*\[([^\]]*)\]\s*\[(.*?)\](?:\s+(.*))?$/;
+  function push() {
+    if (!current) return;
+    if(++eventCount>250000)throw new Error('单文件超过 250,000 条事件');
+    if(!Number.isFinite(current.stamp))throw new Error('日志时间无效');
+    const e = current, text = e.message;
+    e.requestId = (text.match(/(?:["']?requestId["']?\s*[:=]\s*["']?)([\w-]+)/i) || [])[1] || '';
+    e.api=(text.match(/\bapi\s*[:=]\s*([\w.-]+)/)||[])[1]||'';
+    e.direction = /\brequest:/.test(text) ? 'request' : /\bresponse:/.test(text) ? 'response' : '';
+    readNetworkTarget(e);
+    e.kind = e.direction ? 'request' : /LTRTC|IPC|拉流|推流|停流|DataChannel|PlaybackActor|ICE restart|no_answer/i.test(e.location + text) ? 'stream' : /BLE|BTManager|bluetooth|配网|蓝牙|连接设备|断开.*设备|MeariProvision/i.test(e.location + text) ? 'device' : /didBecomeActive|willResignActive|didEnterBackground|willEnterForeground|BackgroundKillMonitor|launch 开始/.test(text) ? 'lifecycle' : /RNFull|RNOta|RNReach|RNBundle/.test(e.location + text) ? 'rn' : 'other';
+    business(e); classifyAnomaly(e,anomalyMode); events.push(e); current = null;
+  }
+  return { line(s) {
+    line++; const m=s.match(header);
+    if(m){
+      push();const time=m[1].includes('.')?m[1].replace(/\.(\d+)$/,(_,digits)=>'.'+digits.padEnd(3,'0')):m[1]+'.000';
+      const stamp=Date.parse(time.replace(' ','T')+'Z');
+      if(!Number.isFinite(stamp)||new Date(stamp).toISOString().replace('T',' ').slice(0,23)!==time){unmatched++;invalidHeaders++;return;}
+      const token=m[2].trim().match(/^(DEBUG|INFO|WARNING|WARN|ERROR|[DIWE])(?=$|[^A-Za-z])/i)?.[1].toUpperCase();
+      const level=token?token[0]:'OTHER';
+      current={file,line,endLine:line,time,stamp,level,rawLevel:m[2],location:m[3],module:m[3].split(':')[0]||(m[3].match(/\[([^ ]+)/)||[])[1]||'SDK',message:m[4]||'',raw:s};
+    }else if(/^\[\d{4}-\d{2}-\d{2}/.test(s)){push();unmatched++;invalidHeaders++;}
+    else if(current){current.raw+='\n'+s;current.message+='\n'+s;current.endLine=line;}
+    else if(s.trim())unmatched++;else blankLines++;
+  }, finish(){push();return {events,unmatched,invalidHeaders,blankLines};} };
+}
+function correlate(events) {
+ const buckets=new Map();let pairs=0,sum=0;
+ events.sort((a,b)=>a.stamp-b.stamp||a.file.localeCompare(b.file)||a.line-b.line);
+ events.forEach((e,i)=>{
+  e.id=i;delete e.partner;delete e.duration;delete e.pairStatus;
+  if(!e.direction)return;
+  e.pairStatus='unmatched';if(!e.requestId)return;
+  const scope=e.sessionId?`${e.file.includes('/')?e.file.slice(0,e.file.lastIndexOf('/')):''}|${e.sessionId}`:e.file;
+  const key=JSON.stringify([scope,Boolean(e.cozyRequest),e.requestId.toLowerCase(),e.api.toLowerCase()||'']);
+  if(!buckets.has(key))buckets.set(key,[]);buckets.get(key).push(e);
+ });
+ for(const group of buckets.values()){
+  const requests=group.filter(e=>e.direction==='request'),responses=group.filter(e=>e.direction==='response');
+  if(requests.length>1||responses.length>1){for(const e of group)e.pairStatus='ambiguous';continue;}
+  if(requests.length===1&&responses.length===1){const a=requests[0],b=responses[0],ms=b.stamp-a.stamp;
+   if(ms<0){a.pairStatus=b.pairStatus='ambiguous';continue;}
+   a.partner=b.id;b.partner=a.id;a.duration=b.duration=ms;a.pairStatus=b.pairStatus='paired';a.pairBasis=b.pairBasis='requestId';pairs++;sum+=ms;
+  }
+ }
+ // Many SDK request records omit requestId while the corresponding response logs it.
+ // Keep the association explicit as a time/API inference instead of discarding it.
+ const fallback=new Map();
+ for(const e of events){if(!e.direction||e.pairStatus!=='unmatched'||!e.api)continue;const key=JSON.stringify([e.file,Boolean(e.cozyRequest),e.api.toLowerCase()]);if(!fallback.has(key))fallback.set(key,[]);fallback.get(key).push(e);}
+ for(const group of fallback.values()){
+  const requests=group.filter(e=>e.direction==='request').sort((a,b)=>a.stamp-b.stamp||a.line-b.line),responses=group.filter(e=>e.direction==='response').sort((a,b)=>a.stamp-b.stamp||a.line-b.line),used=new Set();
+  for(const response of responses){
+   if(response.pairStatus!=='unmatched')continue;
+   const candidates=requests.filter(request=>!used.has(request.id)&&request.pairStatus==='unmatched'&&request.stamp<=response.stamp&&response.stamp-request.stamp<=30000&&(request.requestId===''||response.requestId===''||request.requestId.toLowerCase()===response.requestId.toLowerCase()));
+   if(!candidates.length)continue;
+   const request=candidates.at(-1),ms=response.stamp-request.stamp,basis=request.requestId&&response.requestId?'requestId_scope_fallback':'api_time_fallback';used.add(request.id);request.partner=response.id;response.partner=request.id;request.duration=response.duration=ms;request.pairStatus=response.pairStatus='paired';request.pairBasis=response.pairBasis=basis;pairs++;sum+=ms;
+  }
+ }
+ return {pairs,average:pairs?Math.round(sum/pairs):null,ambiguous:events.filter(e=>e.pairStatus==='ambiguous').length,unmatched:events.filter(e=>e.pairStatus==='unmatched').length};
+}</script><script>/* ZIP containers are decoded in memory. No paths are written to disk. */
+async function unpackZip(file,limit){
+ const buffer=await file.arrayBuffer(),view=new DataView(buffer),bytes=new Uint8Array(buffer),files=[],reports=[];
+ const u16=p=>view.getUint16(p,true),u32=p=>view.getUint32(p,true);
+ const fail=()=>{throw new Error('无法识别完整 ZIP 目录；也可能是进程透明解密视图不同');};
+ let end=-1;
+ for(let p=bytes.length-22;p>=Math.max(0,bytes.length-65557);p--)if(u32(p)===0x06054b50&&p+22+u16(p+20)===bytes.length){end=p;break;}
+ if(end<0)fail();
+ const count=u16(end+10),size=u32(end+12),offset=u32(end+16);
+ if(u16(end+4)||u16(end+6)||u16(end+8)!==count||count===65535||offset===0xffffffff)throw new Error('暂不支持分卷或 ZIP64，请解压后导入文本');
+ if(count>5000)throw new Error('ZIP 条目超过 5,000，请按日期拆分');
+ if(offset+size>end)fail();
+ let p=offset,total=0;
+ for(let i=0;i<count;i++){
+  if(p+46>offset+size||u32(p)!==0x02014b50)fail();
+  const flags=u16(p+8),method=u16(p+10),crc=u32(p+16),compressed=u32(p+20),expanded=u32(p+24),nameLength=u16(p+28),extra=u16(p+30),comment=u16(p+32),local=u32(p+42);
+  if(p+46+nameLength+extra+comment>offset+size)fail();
+  let name;try{name=new TextDecoder('utf-8',{fatal:true}).decode(bytes.subarray(p+46,p+46+nameLength));}catch{ name=`未识别文件名-${i+1}`; }
+  p+=46+nameLength+extra+comment;if(name.endsWith('/'))continue;
+  const full=`${file.webkitRelativePath||file.name}!/${name}`;
+  const skip=message=>reports.push({name:full,state:'unsupported',count:0,status:'跳过：'+message});
+  if(!/\.(log|txt)$/i.test(name)){skip('ZIP 内暂不支持的格式；.xlog / .mmap3 请提供对应 SDK 解码后的文本');continue;}
+  if(flags&1){skip('加密 ZIP，请在本地解压后导入');continue;}
+  if(![0,8].includes(method)){skip('暂不支持该压缩算法，请本地解压后导入');continue;}
+  if(name.split(/[\\/]/).includes('..')){skip('包含不规范的相对路径');continue;}
+  if(expanded>limit-total)throw new Error('ZIP 解压后文本超过剩余 100 MB 总预算，请拆分导入');
+  if(local+30>offset||u32(local)!==0x04034b50)fail();
+  const start=local+30+u16(local+26)+u16(local+28);
+  if(start+compressed>offset)fail();
+  const blob=new Blob([bytes.subarray(start,start+compressed)]);
+  let stream=blob.stream();
+  if(method===8){try{stream=stream.pipeThrough(new DecompressionStream('deflate-raw'));}catch{throw new Error('浏览器不支持 ZIP 解压，请先在本地解压后导入');}}
+  const reader=stream.getReader(),chunks=[];let length=0,check=0xffffffff;
+  try{while(true){const {value,done}=await reader.read();if(done)break;length+=value.length;if(length>expanded||length>limit-total)throw new Error('ZIP 展开大小超限');chunks.push(value);for(const byte of value){check^=byte;for(let bit=0;bit<8;bit++)check=(check>>>1)^((check&1)?0xedb88320:0);}}}
+  catch(error){await reader.cancel().catch(()=>{});throw error;}
+  if(length!==expanded||((check^0xffffffff)>>>0)!==crc)throw new Error('ZIP 条目校验不一致，请检查完整性或进程解密视图');
+  total+=length;const result=new Blob(chunks);files.push({name:full,size:length,stream:()=>result.stream()});
+ }
+ return {files,reports,total};
+}
+async function decodeInputs(inputs,progress,options={}){
+ const all=[],reports=[],files=[],names=new Map();let total=0;
+ const limit=100*1024*1024;
+ if(inputs.filter(f=>/\.(log|txt|zip)$/i.test(f.name)).reduce((n,f)=>n+f.size,0)>limit)throw new Error('输入总大小超过 100 MB，请分批导入');
+ for(const f of inputs){
+  const name=f.webkitRelativePath||f.name;
+  if(/\.zip$/i.test(f.name)){
+   try{const result=await unpackZip(f,limit-total);total+=result.total;files.push(...result.files);reports.push(...result.reports);reports.push({name,state:'container',count:result.files.length,status:`ZIP 已展开：${result.files.length} 个文本条目；分析结果见条目明细`});}
+   catch(e){reports.push({name,state:'error',count:0,status:'未导入：'+e.message});}
+  }else if(/\.(log|txt)$/i.test(f.name)){
+   if(total+f.size>limit){reports.push({name,state:'error',count:0,status:'未导入：展开后总文本超过 100 MB'});continue;}
+   total+=f.size;files.push(f);
+  }else reports.push({name,state:'unsupported',count:0,status:'跳过：不支持此格式；.xlog / .mmap3 需对应 SDK 解码工具及必要的密钥，请导出 .log / .txt 后导入。'});
+ }
+ for(let i=0;i<files.length;i++){
+  const f=files[i],originalName=f.webkitRelativePath||f.name;
+  const occurrence=(names.get(originalName)||0)+1;names.set(originalName,occurrence);
+  const name=occurrence===1?originalName:originalName+' [重复来源 '+occurrence+']';
+  try{
+   const parser=createParser(name,options),decoder=new TextDecoder('utf-8',{fatal:true}),reader=f.stream().getReader();let rest='',lineCount=0;
+   try{while(true){const {value,done}=await reader.read();if(done)break;rest+=decoder.decode(value,{stream:true});const lines=rest.split('\n');rest=lines.pop();for(const s of lines){parser.line(s.replace(/\r$/,''));lineCount++;}if(rest.length>8*1024*1024)throw new Error('单行超过 8 MB，请检查格式或拆分');}rest+=decoder.decode();if(rest){parser.line(rest.replace(/\r$/,''));lineCount++;}}
+   catch(e){await reader.cancel().catch(()=>{});throw e;}
+   const result=parser.finish();if(all.length+result.events.length>250000)throw new Error('超过 250,000 条事件，请按日期分批导入');
+   for(const e of result.events)all.push(e);
+   const ordered=result.events.filter(e=>Number.isFinite(e.stamp)).sort((a,b)=>a.stamp-b.stamp);
+   reports.push({name,state:result.events.length?'parsed':'unrecognized',count:result.events.length,unmatched:result.unmatched,invalidHeaders:result.invalidHeaders,blankLines:result.blankLines,lineCount,start:ordered[0]?.time,end:ordered.at(-1)?.time,status:result.events.length?`${result.events.length.toLocaleString()} 条事件，${result.unmatched} 行未归属（含 ${result.invalidHeaders} 行无效日志头）；${ordered[0]?.time} 至 ${ordered.at(-1)?.time}`:`未识别标准日志头；${result.unmatched} 行未归属（含 ${result.invalidHeaders} 行无效日志头）；请检查格式或进程解密视图`});
+  }catch(e){reports.push({name,state:'error',count:0,status:'未导入：'+e.message+'。若无法解码，请检查进程透明解密视图，不自动判断文件损坏。'});}
+  progress(i+1,files.length);
+ }
+ return {events:all,reports,stats:correlate(all)};
+}</script><script>const $ = id => document.getElementById(id);
+let events=[], filtered=[], page=0, timeWindow=null, busy=false;
+const pageSize=80;
+const logLevels={D:{name:'调试',english:'Debug'},I:{name:'信息',english:'Info'},W:{name:'警告',english:'Warn'},E:{name:'错误',english:'Error'},OTHER:{name:'未知',english:'Unknown'}};
+function logLevelKey(level){return Object.hasOwn(logLevels,level)?level:'OTHER';}
+function logLevelLabel(level){const key=logLevelKey(level);return `${key} · ${logLevels[key].name}`;}
+function logLevelBadge(level){
+ const key=logLevelKey(level),badge=document.createElement('span');badge.className='logLevel level-'+key;
+ badge.textContent=logLevelLabel(key);badge.title=`日志原始等级：${logLevels[key].english}（${key}）。与工具判断的异常线索分开显示。`;
+ badge.setAttribute('aria-label','日志等级：'+logLevels[key].name+' '+key);return badge;
+}
+function levelText(target,e,text){const label=document.createElement('span');label.className='logEntryText';label.textContent=text;target.replaceChildren(logLevelBadge(e.level),label);target.classList.add('levelEntry');}
+function workerMain(){
+ self.onmessage=async({data})=>{
+  const files=data.files||data, options=data.options||{};
+  try{const result=await decodeInputs(files,(done,total)=>self.postMessage({type:'progress',done,total}),options);self.postMessage({type:'done',...result});}
+  catch(error){self.postMessage({type:'error',message:error.message});}
+ };
+}
+function reportFiles(reports){$('imports').hidden=false;$('filelist').replaceChildren();for(const r of reports){const d=document.createElement('div');d.textContent=r.name+' — '+r.status;$('filelist').append(d);}}
+async function load(files){
+ if(busy)return; files=Array.from(files);if(!files.length)return;
+ const bytes=files.filter(f=>/\.(log|txt|zip)$/i.test(f.name)).reduce((n,f)=>n+f.size,0);
+ if(bytes>100*1024*1024){$('status').textContent='本版单次支持最多 100 MB 文本 / ZIP 输入，请按日期分批导入。当前结果已保留。';return;}
+ if(typeof window!=='undefined')window.dispatchEvent(new Event('loglens-import-start'));
+ busy=true;$('files').disabled=$('folder').disabled=$('demo').disabled=true;$('status').textContent='正在解析…';$('progress').hidden=false;$('progress').value=0;$('progress').max=files.length;
+ let worker,url;
+ const cleanup=()=>{worker?.terminate();if(url)URL.revokeObjectURL(url);busy=false;$('files').disabled=$('folder').disabled=$('demo').disabled=false;$('progress').hidden=true;$('files').value=$('folder').value='';};
+ try{
+  url=URL.createObjectURL(new Blob([classifyAnomaly.toString(),'\n',createParser.toString(),'\n',correlate.toString(),'\n',unpackZip.toString(),'\n',decodeInputs.toString(),'\n(',workerMain.toString(),')()'],{type:'text/javascript'}));worker=new Worker(url);
+  worker.onerror=()=>{cleanup();$('status').textContent='解析线程启动或执行失败。请尝试现代浏览器，或使用 README 中的本地静态预览方式。';};
+  worker.onmessage=({data})=>{if(data.type==='error'){cleanup();$('status').textContent='解析失败：'+data.message;return;}if(data.type==='progress'){$('progress').max=data.total;$('progress').value=data.done;$('status').textContent=`正在解析 ${data.done} / ${data.total} 个文件…`;return;} cleanup();events=data.events;for(const e of events)classifyAnomaly(e,$('anomalyMode').value||'level');comparison=[];workflowPage=0;reportFiles(data.reports);resetFilters();fillOverview(data.stats);renderChart();applyFilters();$('status').textContent=`${files.length} 个文件 · ${events.length.toLocaleString()} 条日志`;$('export').disabled=!events.length;};
+  worker.postMessage({files,options:{anomalyMode:$('anomalyMode')?.value||'level'}});
+ }catch(e){cleanup();$('status').textContent='无法启动解析：'+e.message;}
+}
+function fmt(stamp){return new Date(stamp).toISOString().replace('T',' ').slice(0,19);}
+function resetFilters(){for(const id of ['search','module','level','kind','scene'])$(id).value='';timeWindow=null;page=0;businessPage=0;$('businessOutcome').value='';$('businessDevice').value='';}
+function fillOverview(stats){
+ $('total').textContent=events.length.toLocaleString();$('issues').textContent=events.filter(e=>e.issue).length.toLocaleString();const mods=[...new Set(events.map(e=>e.module))].sort();$('modules').textContent=mods.length;$('requests').textContent=stats.pairs.toLocaleString();$('latency').textContent=stats.pairs?`平均 ${stats.average} ms`:'—';$('range').textContent=events.length?events[0].time.slice(0,10)+' 至 '+events.at(-1).time.slice(0,10):'无可识别日志';
+ $('module').replaceChildren(new Option('全部模块',''));for(const m of mods)$('module').add(new Option(m,m));
+}
+function renderChart(){
+ const chart=$('chart');chart.replaceChildren();if(!events.length){chart.textContent='暂无数据';$('startLabel').textContent=$('endLabel').textContent='—';return;}
+ const first=events[0].stamp,last=events.at(-1).stamp, slots=Math.min(48,Math.max(1,Math.ceil((last-first)/60000))),width=Math.max(1,Math.ceil((last-first+1)/slots));const bins=Array.from({length:slots},()=>({total:0,issue:0}));
+ for(const e of events){const b=bins[Math.min(slots-1,Math.floor((e.stamp-first)/width))];b.total++;if(e.issue)b.issue++;}
+  const max=Math.max(...bins.map(b=>b.total));bins.forEach((b,i)=>{const button=document.createElement('button');button.className='bar';const lo=first+i*width,hi=lo+width;button.title=`${fmt(lo)} — ${fmt(hi)}\n${b.total} 条日志 / ${b.issue} 条疑似异常日志`;button.setAttribute('aria-label',button.title);const total=document.createElement('span'),bad=document.createElement('span');total.className='all';bad.className='bad';total.style.height=(b.total/max*100)+'%';bad.style.height=(b.issue/max*100)+'%';button.append(total,bad);button.onclick=()=>{timeWindow=[lo,hi];page=0;chart.querySelectorAll('.bar').forEach(x=>x.classList.remove('active'));button.classList.add('active');applyFilters();};chart.append(button);});$('startLabel').textContent=fmt(first);$('endLabel').textContent=fmt(last);
+}
+function applyFilters(){
+ const q=$('search').value.toLowerCase(),mod=$('module').value,level=$('level').value,kind=$('kind').value;
+ filtered=events.filter(e=>(!q||e.raw.toLowerCase().includes(q)||e.file.toLowerCase().includes(q))&&(!$('scene').value||e.business?.category===$('scene').value)&&(!mod||e.module===mod)&&(!level||e.level===level)&&(!kind||(kind==='issue'?e.issue:e.kind===kind))&&(!timeWindow||(e.stamp>=timeWindow[0]&&e.stamp<timeWindow[1])));
+ $('timeFilter').textContent=timeWindow?`时间筛选：${fmt(timeWindow[0])} 至 ${fmt(timeWindow[1])}（不含结束时间）`:'';renderRows();businessPage=0;renderBusiness();
+}
+function renderRows(){
+ const pages=Math.ceil(filtered.length/pageSize);page=Math.max(0,Math.min(page,pages-1));$('rows').replaceChildren();
+ for(const e of filtered.slice(page*pageSize,(page+1)*pageSize)){
+  const tr=document.createElement('tr');tr.dataset.id=e.id;tr.tabIndex=0;tr.className='logRow level-'+logLevelKey(e.level);tr.setAttribute('aria-label','查看事件 '+logLevelLabel(e.level)+' '+e.time+' '+e.module);const values=[e.time,e.level,e.module,e.message.split('\n')[0],e.duration===undefined?'—':e.duration+' ms'];values.forEach((v,i)=>{const td=document.createElement('td');if(i===1){td.append(logLevelBadge(e.level));}else td.textContent=v;td.title=v;tr.append(td);});tr.onclick=()=>openDetail(e.id);tr.onkeydown=k=>{if(k.key==='Enter')openDetail(e.id);};$('rows').append(tr);
+ }
+ if(!filtered.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=5;td.className='empty';td.textContent=events.length?'无匹配日志':'暂无日志';tr.append(td);$('rows').append(tr);}
+ $('count').textContent=`匹配 ${filtered.length.toLocaleString()} / ${events.length.toLocaleString()} 条日志`;$('page').textContent=`${pages?page+1:0} / ${pages}`;$('prev').disabled=page===0;$('next').disabled=page>=pages-1;
+}
+function openDetail(id){const e=events[id];showBusinessFields(e);$('source').textContent=`${e.file} · 第 ${e.line}–${e.endLine} 行 · ${e.location}`;$('reason').textContent=e.reason;$('raw').textContent=e.raw;$('context').replaceChildren();if(e.partner!==undefined){const b=document.createElement('button');b.textContent=`查看配对${e.direction==='request'?'响应':'请求'} · ${e.duration} ms`;b.onclick=()=>openDetail(e.partner);$('context').append(b);}const siblings=events.filter(x=>x.file===e.file),idx=siblings.findIndex(x=>x.id===id);for(const n of siblings.slice(Math.max(0,idx-2),idx+3)){const b=document.createElement('button');b.textContent=(n.id===id?'▶ ':'')+n.time+' '+n.message.slice(0,180);b.onclick=()=>openDetail(n.id);$('context').append(b);}if(!$('detail').open)$('detail').showModal();}
+for(const id of ['files','folder'])$(id).onchange=e=>load(e.target.files);
+function applyAnomalyMode(){const mode=$('anomalyMode')?.value||'level';for(const e of events)classifyAnomaly(e,mode);$('issues').textContent=events.filter(e=>e.issue).length.toLocaleString();renderChart();applyFilters();}
+$('anomalyMode').onchange=applyAnomalyMode;
+for(const type of ['dragover','dragleave','drop'])$('drop').addEventListener(type,e=>{e.preventDefault();$('drop').classList.toggle('over',type==='dragover');if(type==='drop')load(e.dataTransfer.files);});
+let debounce;for(const id of ['search','module','level','kind','scene'])$(id).addEventListener('input',()=>{clearTimeout(debounce);debounce=setTimeout(()=>{page=0;applyFilters();},id==='search'?180:0);});
+$('clear').onclick=()=>{resetFilters();renderChart();applyFilters();};$('resetTime').onclick=()=>{timeWindow=null;page=0;renderChart();applyFilters();};$('prev').onclick=()=>{page--;renderRows();};$('next').onclick=()=>{page++;renderRows();};$('close').onclick=()=>$('detail').close();
+$('export').onclick=()=>{const payload={tool:'LogLens',note:'疑似异常日志只是规则筛选结果，不代表根因结论；导出含原始日志，请按需脱敏。',filters:{query:$('search').value,module:$('module').value,level:$('level').value,kind:$('kind').value,scene:$('scene').value,timeWindow},events:filtered};const url=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='loglens-analysis.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);};
+$('demo').onclick=()=>{const demo=`[2026-11-17 11:37:28.650] [I📝] [Application:190 launch(in:)] [Application] launch 开始
+[2026-11-17 11:37:28.670] [I📝] [:260 -[ThingSmartMQTTChannel didEnterForeground]] enter foreground
+[2026-11-17 11:37:29.109] [I📝] [:1081 -[ThingSmartMQTTChannel handleEvent:event:error:]] connect success time consuming : 437
+[2026-11-17 11:37:49.655] [I📝] [:275 -[ThingBaseApi sendRequest]_block_invoke] [baseapi] request: api = demo.login, commonParams = {
+  "requestId" : "DEMO-REQUEST-001",
+  "appVersion" : "demo"
+}
+[2026-11-17 11:37:49.807] [I📝] [:298 -[ThingApi handleSuccess:object:]] [api] response: api = demo.login requestId:DEMO-REQUEST-001 success
+[2026-11-17 11:38:10.000] [D🛠] [LoginCodeInputViewModel:229 getEmailCode(email:complete:onFailure:)] getEmailCode error:URLSessionTask failed with error: 请求超时。
+[2026-11-17 11:38:20.000] [E❌] [MeariProvisionModule:164 reportScanFailure(_:error:)] 阶段=ble_scan，结果=fail，diagnostic_code:MEARI_SCAN_LOGIN_FAILED
+[2026-11-17 11:38:23.000] [D🛠] [BTManager:602 disconnectAllEntity()] 断开所有设备连接
+[2026-11-17 11:39:00.000] [I📝] [LTRNFullBundleRuntime:52 prepareIfNeeded()] [RNFullRuntime] jsDidLoad elapsedMs=2589
+[2026-11-17 11:39:00.002] [I📝] [LTRNFullBundleRuntime:188 registerEmbeddedAssetsIfNeeded(bridge:)] [RNFullRuntime] register full assets failed: batchedBridge 不可用`;
+load([new File([demo+businessDemo],'演示数据-按实际格式构造.log',{type:'text/plain'})]);};</script><script>const businessNames={provision:'觅睿配网',bluetooth:'蓝牙连接',mqtt:'MQTT 通信',pump:'吸奶器状态',rn:'RN / OTA',auth:'登录与验证码',stream:'推拉流','':'未识别业务'};
+const stageNames={sdk_login:'SDK 登录',origin_device_list:'原设备列表',ble_scan:'蓝牙扫描',stop_scan:'停止扫描',clear_timer:'清理定时器',sdk_event:'SDK 事件',cloud_device_list_timer:'云设备列表定时器',scan_start:'开始扫描',scan_stop:'停止扫描',connect:'发起连接',disconnect:'断开设备',disconnect_all:'断开全部',bluetooth_event:'蓝牙事件',central_created:'蓝牙管理器创建',connected:'连接成功',subscribe_ack:'订阅回执',subscribe:'订阅',reconnect:'重连',reconnect_skipped:'跳过重连',disconnected:'断开连接',transport:'传输事件',js_loaded:'JS 加载完成',assets_failed:'资源注册失败',version_reach:'资源版本生效',gate_denied:'策略跳过',prepare:'准备加载',ota_event:'OTA 事件',email_code:'邮箱验证码',captcha_config:'验证码配置',token_create:'获取令牌',login:'登录',activity:'实时活动',session_create:'流会话创建',session_init:'流会话初始化',session_release:'流会话释放',pull_start:'开始拉流',pull_stop:'停止拉流',push_start:'开始推流',push_stop:'停止推流',data_channel:'数据通道',ice_restart:'ICE 重启',connect_error:'流连接失败',playback_config:'播放配置',stream_event:'流事件'};
+const outcomeNames={success:'成功',fail:'失败',start:'开始',candidate:'疑似异常',skipped:'跳过'};
+let businessCategory='provision',businessPage=0;
+function renderBusiness(){
+ const tabs=$('businessTabs');tabs.replaceChildren();
+ for(const [key,name] of Object.entries(businessNames)){const button=document.createElement('button');const n=filtered.filter(e=>e.business?.category===key).length;button.textContent=`${name} ${n.toLocaleString()}`;button.className=key===businessCategory?'selected':'';button.setAttribute('aria-pressed',key===businessCategory);button.onclick=()=>{businessCategory=key;businessPage=0;renderBusiness();};tabs.append(button);}
+ const outcome=$('businessOutcome').value,device=$('businessDevice').value.toLowerCase();
+ const items=filtered.filter(e=>e.business?.category===businessCategory&&(!outcome||e.business.outcome===outcome)&&(!device||e.business.device.toLowerCase().includes(device)));
+ const summary=$('businessSummary');summary.replaceChildren();
+ const countField=(label,entries)=>{const block=document.createElement('div');const title=document.createElement('span');title.textContent=label;block.append(title);if(!entries.length){const empty=document.createElement('b');empty.textContent='—';block.append(empty);}for(const [value,count] of entries){const row=document.createElement('div');row.className='summaryvalue';row.textContent=`${value} · ${count}`;block.append(row);}summary.append(block);};
+ const tally=arr=>{const counts=new Map();for(const v of arr)if(v)counts.set(v,(counts.get(v)||0)+1);return [...counts].sort((a,b)=>b[1]-a[1]).slice(0,4);};
+ countField('阶段记录',tally(items.map(e=>stageNames[e.business.stage]||e.business.stage)));
+ countField('诊断码',tally(items.map(e=>e.business.fields['诊断码'])));
+ countField('记录结果',tally(items.map(e=>outcomeNames[e.business.outcome]||'未标记')));
+ const env=$('environment');env.replaceChildren();const vals=new Map();for(const e of filtered)for(const [key,v]of Object.entries(e.environment||{})){if(!vals.has(key))vals.set(key,new Set());vals.get(key).add(v);}for(const [key,values]of vals){const chip=document.createElement('span');chip.textContent=key+' '+[...values].join(' / ');env.append(chip);}
+ const pages=Math.ceil(items.length/40);businessPage=Math.max(0,Math.min(businessPage,pages-1));const body=$('businessRows');body.replaceChildren();
+ for(const e of items.slice(businessPage*40,(businessPage+1)*40)){const b=e.business,tr=document.createElement('tr');tr.tabIndex=0;tr.dataset.id=e.id;tr.className='logRow level-'+logLevelKey(e.level);tr.onclick=()=>openDetail(e.id);tr.onkeydown=k=>{if(k.key==='Enter')openDetail(e.id);};const details=Object.entries(b.fields).filter(([k])=>!['设备','阶段','requestId'].includes(k)).map(([k,v])=>k+': '+v).join(' · ');const fields=[e.time,e.level,stageNames[b.stage]||b.stage,outcomeNames[b.outcome]||'—',b.device||'—',details||e.message.split('\n')[0]];fields.forEach((v,i)=>{const td=document.createElement('td');if(i===1)td.append(logLevelBadge(e.level));else td.textContent=v;td.title=v;if(i===3)td.className=['fail','candidate'].includes(b.outcome)?'businessbad':'';tr.append(td);});body.append(tr);}
+ if(!items.length){const tr=document.createElement('tr'),td=document.createElement('td');td.colSpan=6;td.className='empty';td.textContent='暂无匹配记录';tr.append(td);body.append(tr);}
+ $('businessPage').textContent=`${pages?businessPage+1:0} / ${pages} · ${items.length.toLocaleString()} 条`;$('businessPrev').disabled=businessPage===0;$('businessNext').disabled=businessPage>=pages-1;
+}
+function showBusinessFields(e){const box=$('businessFields');box.replaceChildren();if(!e.business?.category)return;const b=e.business;const data={'业务':businessNames[b.category],'识别依据':b.basis||'未记录','操作':stageNames[b.stage]||b.stage,'结果':outcomeNames[b.outcome]||'未标记',...b.fields};for(const [key,value]of Object.entries(data)){const row=document.createElement('div'),label=document.createElement('span'),v=document.createElement('strong');label.textContent=key;v.textContent=value;row.append(label,v);box.append(row);}}
+$('businessOutcome').onchange=()=>{businessPage=0;renderBusiness();};$('businessDevice').oninput=()=>{businessPage=0;renderBusiness();};$('businessPrev').onclick=()=>{businessPage--;renderBusiness();};$('businessNext').onclick=()=>{businessPage++;renderBusiness();};renderBusiness();
+const businessDemo=`
+[2026-11-17 11:38:01.000] [I📝] [MeariProvisionModule:70 startScan()] 【觅睿】阶段=sdk_login，结果=success
+[2026-11-17 11:38:02.000] [I📝] [MeariProvisionModule:79 startScan()] 【觅睿】阶段=origin_device_list，结果=success，device_count:0
+[2026-11-17 11:38:03.000] [I📝] [MeariProvisionModule:81 startScan()] 【觅睿】阶段=ble_scan，结果=start
+[2026-11-17 11:38:24.000] [D🛠] [BTManager:586 disconnectEntity(_:)] 断开设备连接：Optional("DEMO-DEVICE")
+[2026-11-17 11:38:25.000] [D🛠] [PumpFloatingManager:308 consumeM5ProPresentationOutput(_:)] PumpActivity action：FloatingManager.consumeOutput reason=app.willResignActive devices=0 active=false running=false elapsed=nil tracked=[]
+[2026-11-17 11:39:01.000] [I📝] [LTRNOtaVersionReachReporter:54 reportIfNeeded()] [RNReach] rn_ota_version_reach resId=full ver=3.4.0 size=63765638 ms=2589 sticky=false
+[2026-11-17 11:40:01.000] [I] [MeariProvisionModule:70 startScan()] 【觅睿】阶段=sdk_login，结果=success operationId=DEMO-OP-A device_id=DEMO-DEVICE-A
+[2026-11-17 11:40:02.000] [I] [MeariProvisionModule:81 startScan()] 【觅睿】阶段=ble_scan，结果=start operationId=DEMO-OP-A device_id=DEMO-DEVICE-A
+[2026-11-17 11:40:12.000] [E] [MeariProvisionModule:164 reportScanFailure()] 【觅睿】阶段=ble_scan，结果=fail operationId=DEMO-OP-A device_id=DEMO-DEVICE-A diagnostic_code=DEMO_SCAN_TIMEOUT
+[2026-11-17 11:40:20.000] [I] [MeariProvisionModule:90 scanResult()] 【觅睿】阶段=ble_scan，结果=success operationId=DEMO-OP-A device_id=DEMO-DEVICE-A
+[2026-11-17 11:41:01.000] [I] [MeariProvisionModule:70 startScan()] 【觅睿】阶段=sdk_login，结果=success operationId=DEMO-OP-B device_id=DEMO-DEVICE-B
+[2026-11-17 11:41:02.000] [I] [MeariProvisionModule:81 startScan()] 【觅睿】阶段=ble_scan，结果=start operationId=DEMO-OP-B device_id=DEMO-DEVICE-B
+[2026-11-17 11:41:05.000] [I] [MeariProvisionModule:90 scanResult()] 【觅睿】阶段=ble_scan，结果=success operationId=DEMO-OP-B device_id=DEMO-DEVICE-B
+`;</script><script>// Technical hints describe observed text, not a business identity or root cause.
+const technicalRules=[
+ {id:'tls',label:'证书 / TLS',pattern:/\b(?:SSL|TLS|certificate)\b|证书/i,next:'核对证书、TLS 错误原文与请求目标；不要据此直接判断服务端故障。'},
+ {id:'dns',label:'域名解析',pattern:/\bDNS\b|cannot find host|unknown host|name resolution|域名解析/i,next:'核对目标域名与当时网络环境，并对照后续请求是否成功。'},
+ {id:'network-timeout',label:'网络请求超时',pattern:/(?:request|URLSession|socket|connect|network|HTTP|请求|连接|网络)[\s\S]{0,180}(?:timed out|timeout|超时)|(?:timed out|timeout|超时)[\s\S]{0,180}(?:request|URLSession|socket|connect|network|HTTP|请求|连接|网络)/i,next:'核对请求目标、客户端超时和后续重试；客户端超时不代表服务端一定没有执行。'},
+ {id:'timeout',label:'超时记录',pattern:/timed out|\btimeout\b|超时/i,next:'先确认是请求、扫描、计时器还是其他操作超时；超时本身不能说明网络故障。'},
+ {id:'resource',label:'资源加载',pattern:/(?:asset|bundle|resource|image|资源|图片)[\s\S]{0,120}(?:failed|failure|not found|missing|失败|不存在)|(?:failed|failure|失败)[\s\S]{0,120}(?:asset|bundle|resource|image|资源|图片)/i,next:'核对资源名称、版本、路径与后续加载记录，确认是否影响页面展示。'},
+ {id:'http',label:'接口 / HTTP',pattern:/\bHTTP\b|statusCode\s*[:=]\s*[45]\d\d|\bresponse:|\brequest:|接口/i,next:'核对接口名称、状态码、业务错误码与配对响应；有请求标识时可对照服务端日志。'},
+ {id:'network',label:'网络连接',pattern:/\b(?:URLSession|socket|network|connection refused|connection reset)\b|网络|连接被拒绝|连接重置/i,next:'核对当时网络、连接目标和重试结果，并区分主动断开与异常断开。'},
+ {id:'permission',label:'权限 / 访问限制',pattern:/permission denied|not authorized|access denied|权限不足|无权限|拒绝访问/i,next:'核对系统权限、登录状态和接口返回，先确认拒绝访问发生在哪一层。'},
+ {id:'storage',label:'文件 / 存储',pattern:/\b(?:SQLite|database|disk full|no such file|file not found)\b|磁盘|数据库|文件不存在|存储空间/i,next:'核对文件路径、存储空间或数据库操作；检查是否存在重试或降级记录。'},
+ {id:'runtime',label:'运行时异常',pattern:/\b(?:exception|fatal|stacktrace|NullPointerException|TypeError|ReferenceError)\b|异常堆栈/i,next:'查看异常类型与堆栈。仅凭异常文本不能认定发生了 App 崩溃。'}
+];
+function technicalHint(e){
+ const text=(e.location||'')+' '+(e.message||'');
+ const rule=technicalRules.find(r=>r.pattern.test(text));
+ return rule?{...rule,matched:rule.pattern.exec(text)?.[0].slice(0,100)}:{id:'unknown',label:'类型待识别',matched:'',next:'先查看来源模块和原文，确认这条记录描述的操作；目前没有匹配到业务或技术类型规则。'};
+}
+function sourceLabel(e){return e.module&&e.module!=='SDK'?e.module:(e.location||'来源未识别').slice(0,100);}
+function issueReasons(e){
+ const reasons=[];
+ if(e.level==='E')reasons.push('原始等级为 E（错误）');
+ if(e.business?.outcome==='fail')reasons.push('业务结果标记 fail');
+ const match=(e.message||'').match(/\bfailed\b|\bfailure\b|\berror\s*:|结果\s*=\s*fail|失败|请求超时|连接超时|timed out/i);
+ if(match)reasons.push(`消息包含“${match[0]}”`);
+ return reasons.length?reasons:['异常规则命中，需结合原文确认'];
+}
+function issueExcerpt(e){
+ const lines=(e.message||'').split('\n').map(s=>s.trim()).filter(Boolean);
+ const line=lines.find(s=>/failed|failure|error|exception|失败|超时|timed out/i.test(s))||lines[0]||'消息为空';
+ return line.length>180?line.slice(0,180)+'…':line;
+}
+function issueSignature(e){
+ // Normalize known variable fields, not arbitrary numbers: status/error codes remain distinct.
+ return (e.message||'').split('\n').map(s=>s.trim()).filter(Boolean).join(' ')
+  .replace(/\b[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}\b/gi,'<UUID>')
+  .replace(/\b0x[0-9a-f]{6,}\b/gi,'<地址>')
+  .replace(/\b\d{4}-\d{2}-\d{2}[T ]\d{2}:\d{2}:\d{2}(?:\.\d+)?Z?/g,'<时间>')
+  .replace(/((?:["']?)(?:requestId|traceId|sessionId|operationId|attemptId|deviceId|device_id|devId)(?:["']?)\s*[:=]\s*)(?:"[^"\n]*"|'[^'\n]*'|[^\s,;}]+)/gi,'$1<ID>')
+  .replace(/((?:elapsedMs|elapsed|duration|latency|timestamp|totalTime|sslTime|ackTime)\s*[:=]\s*)\d+(?:\.\d+)?/gi,'$1<数值>')
+  .replace(/\b\d+(?:\.\d+)?\s*ms\b/gi,'<耗时>')
+  .replace(/\s+/g,' ').trim();
+}
+function recoveryEligibility(e){
+ if(!e.business?.category||!e.business?.stage)return '尚未识别业务阶段，不判断恢复情况。';
+ if(!e.operationId&&!e.business?.device)return '缺少操作或设备关联标识，不判断恢复情况。';
+ return '';
+}</script><script>/* Pure evidence model. No time-only association is described as an actual attempt. */
+const diagnosticRules = {
+ version:'2026-11-18.1',
+ provision:{label:'配网',impact:'可能影响设备添加或配网推进',next:'核对失败阶段、SDK 登录结果、扫描结果与后续重试；必要时补充设备侧日志。'},
+ bluetooth:{label:'蓝牙',impact:'可能影响手机与设备之间的连接',next:'核对蓝牙状态、主动断开操作、前后台变化，以及同设备后续连接记录。'},
+ mqtt:{label:'MQTT',impact:'可能影响设备消息订阅或状态同步',next:'核对连接、订阅回执与后续重连；连接成功不能证明订阅或消息送达成功。'},
+ pump:{label:'吸奶器状态',impact:'可能影响 App 中的状态展示',next:'核对设备标识与状态快照；浮窗状态不能证明设备实际运行或停止。'},
+ rn:{label:'页面 / 资源加载',impact:'可能影响页面或资源加载',next:'核对资源版本、加载完成与资源注册结果；策略跳过不等于加载失败。'},
+  auth:{label:'登录 / 验证码',impact:'可能影响验证码获取或登录',next:'核对对应接口的响应和重试结果，并使用请求标识查找服务端记录。'},
+  stream:{label:'推拉流',impact:'可能影响设备实时音视频预览或会话连接',next:'按设备与会话标识串联拉流、停流、DataChannel、ICE 和连接错误记录，确认是否存在后续成功阶段。'},
+ other:{label:'未分类',impact:'实际影响尚不明确',next:'结合问题时间、请求响应和前后操作确认；错误级别本身不能说明根因。'}
+};
+function diagnosticFor(e){if(diagnosticRules[e.business?.category])return diagnosticRules[e.business.category];const hint=technicalHint(e);return {label:hint.label,impact:'尚未识别业务归属；技术类型仅来自文本特征，不代表根因',next:hint.next};}
+function evidenceScope(e){return e.sessionId ? `${e.file.includes('/')?e.file.slice(0,e.file.lastIndexOf('/')):''}|session:${e.sessionId}` : e.file;}
+function buildProcesses(items){
+ const buckets=new Map(), result=[];
+ for(const e of items){
+  const b=e.business||{};if(!b.category)continue;
+  let key,confidence;
+  if(e.operationId){key=JSON.stringify([evidenceScope(e),b.category,'operation',e.operationId]);confidence='explicit';}
+  else if(e.partner!==undefined){key=JSON.stringify([b.category,'request',Math.min(e.id,e.partner)]);confidence='request';}
+  else if(b.device){key=JSON.stringify([evidenceScope(e),b.category,'device',b.device]);confidence='device';}
+  else {key=`unassigned:${e.id}`;confidence='unassigned';}
+  let group=buckets.get(key);
+  // Split only probable device timelines, never infer a session from proximity alone.
+  if(group&&confidence==='device'&&e.stamp-group.items.at(-1).stamp>300000)group=null;
+  if(!group){group={id:result.length,category:b.category,confidence,items:[]};result.push(group);buckets.set(key,group);}
+  group.items.push(e);
+ }
+ for(const group of result){
+  const first=group.items[0],last=group.items.at(-1);
+  group.elapsed=last.stamp-first.stamp;
+  group.hasFailure=group.items.some(e=>e.issue||e.business.outcome==='fail');
+  group.hasSuccess=group.items.some(e=>e.business.outcome==='success');
+  group.result=group.hasFailure?'含异常证据':group.hasSuccess?'含阶段成功记录':'结果未明确';
+ }
+ return result;
+}
+function recoveryEvidence(issue,items){
+ const b=issue.business||{};
+ const insufficient=recoveryEligibility(issue);if(insufficient)return {status:'unknown',text:insufficient};
+ const later=items.find(e=>e.stamp>issue.stamp&&e.stamp-issue.stamp<=300000&&
+  evidenceScope(e)===evidenceScope(issue)&&e.business?.category===b.category&&e.business.stage===b.stage&&
+  e.business.outcome==='success'&&!e.issue&&
+  ((issue.operationId&&e.operationId===issue.operationId)||(!issue.operationId&&b.device&&e.business.device===b.device)));
+ if(!later)return {status:'unknown',text:'当前可见范围内，未找到可关联的同阶段后续成功证据；不能认定持续失败。'};
+ return {status:issue.operationId?'stage_success':'possible',event:later,
+  text:issue.operationId?'相同操作标识、相同阶段随后记录成功；仅证明该阶段出现成功，不代表整个业务恢复。':'同设备、同阶段在 5 分钟内出现成功；可能是另一次尝试，不能确认本次恢复。'};
+}
+function requestSummary(items){
+ const requests=items.filter(e=>e.direction==='request');
+ const paired=requests.filter(e=>e.partner!==undefined), durations=paired.map(e=>e.duration).sort((a,b)=>a-b);
+ return {paired:paired.length,unmatched:items.filter(e=>e.direction&&e.pairStatus==='unmatched').length,
+  ambiguous:items.filter(e=>e.pairStatus==='ambiguous').length,
+  p95:durations.length?durations[Math.ceil(durations.length*.95)-1]:null};
+}
+function createRedactor(items){
+ const aliases=new Map(),counts=new Map();
+ const alias=(kind,value)=>{const key=kind+'|'+value;if(!aliases.has(key)){const n=(counts.get(kind)||0)+1;counts.set(kind,n);aliases.set(key,`${kind}-${n}`);}return aliases.get(key);};
+ const known=new Map();
+ for(const e of items){for(const [kind,value]of [['设备',e.business?.device],['请求',e.requestId],['操作',e.operationId],['会话',e.sessionId]])if(value)known.set(value,alias(kind,value));}
+ const tokens=[...known].sort((a,b)=>b[0].length-a[0].length);
+ const text=value=>{
+  let s=String(value||'');
+  s=s.replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,v=>alias('邮箱',v));
+  s=s.replace(/\b(?:Bearer\s+)[A-Za-z0-9._~+/=-]+/gi,()=> '[令牌已隐藏]');
+  s=s.replace(/((?:["']?)(?:password|passwd|token|access_token|refresh_token|authorization|secret|apiKey|email|phone|mobile|uid|userId|deviceId|devId|device_id|requestId|sessionId|operationId|attemptId|address|latitude|longitude|验证码)(?:["']?)\s*[:=]\s*)(?:"[^"\n]*"|'[^'\n]*'|[^\s,;}]+)/gi,(_,prefix)=>prefix+'[已隐藏]');
+  s=s.replace(/\b(?:\d{1,3}\.){3}\d{1,3}\b/g,v=>alias('IP',v)).replace(/\b(?:[0-9a-f]{2}:){5}[0-9a-f]{2}\b/gi,v=>alias('MAC',v));
+  s=s.replace(/\b1[3-9]\d{9}\b/g,v=>alias('电话',v)).replace(/\beyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\b/g,'[令牌已隐藏]');
+  for(const [original,replacement]of tokens)if(original.length>=4)s=s.split(original).join(replacement);
+  return s;
+ };
+ return {alias,text};
+}
+function buildReadableReport(items,reports,actual,expected){
+ const redact=createRedactor(items), refs=new Map(items.map((e,i)=>[e.id,`E${i+1}`]));
+ const lines=['# LogLens 排查报告',`规则版本：${diagnosticRules.version}`,'范围：当前全局筛选。所有时间均为日志原始时间，未做时区转换。',
+  `导入条目 ${reports.length} 个；当前 ${items.length} 条事件。业务条目和异常记录数不代表操作次数。`,
+  '',`实际现象：${redact.text(actual)||'待补充'}`,`预期行为：${redact.text(expected)||'待补充'}`,
+  '', '## 文件覆盖'];
+ for(const r of reports)lines.push(`${redact.alias('文件',r.name)}：${r.state||'见导入明细'}；事件 ${r.count??'未知'}；未归属行 ${r.unmatched??'未知'}${r.start?'；'+r.start+' 至 '+r.end:''}`);
+ lines.push('','## 请求关联',JSON.stringify(requestSummary(items)),'未配对不等于失败；冲突请求不自动配对。','', '## 异常与建议');
+ for(const g of groupIssues(items)){
+  const first=g.items[0],last=g.items.at(-1),rule=diagnosticFor(first),recovery=recoveryEvidence(last,items);
+  lines.push(`- ${rule.label}：${g.items.length} 条疑似异常日志；${first.time} 至 ${last.time}。`,
+   `  入选依据：${issueReasons(first).join('；')}。${rule.impact}。${rule.next}`,`  ${recovery.text}`,`  证据：${g.items.map(e=>refs.get(e.id)).join('、')}${recovery.event?'；后续成功 '+refs.get(recovery.event.id):''}`);
+ }
+ lines.push('','## 业务过程 / 相关记录');
+ for(const p of buildProcesses(items)){
+  lines.push(`- ${diagnosticRules[p.category]?.label||'业务'}：${p.result}；${p.confidence==='explicit'?'明确操作标识':p.confidence==='request'?'已配对请求':p.confidence==='device'?'同设备可能相关':'未归属单条记录'}；记录跨度 ${p.elapsed} ms。`,
+   p.items.map(e=>`${refs.get(e.id)} ${stageNames[e.business.stage]||'其他阶段'} (${outcomeNames[e.business.outcome]||'未标记'})`).join(' → '));
+ }
+ lines.push('','## 证据索引');
+ for(const e of items)lines.push(`${refs.get(e.id)} | ${e.time} | ${redact.alias('文件',e.file)}:${e.line}-${e.endLine} | ${diagnosticFor(e).label} | ${stageNames[e.business?.stage]||'其他阶段'} | ${outcomeNames[e.business?.outcome]||'未标记'}${e.business?.device?' | '+redact.alias('设备',e.business.device):''}${e.requestId?' | '+redact.alias('请求',e.requestId):''}`);
+ lines.push('','原始消息、文件名、未知业务字段及环境值默认省略；标识在本报告内稳定替换。填写的现象描述已做常见字段脱敏，共享前仍请检查自由文本。报告不提供根因或完整恢复结论。');
+ return lines.join('\n');
+}</script><script>// Evidence-based summaries: counts are records, never inferred business attempts.
+let importReports = [];
+function groupIssues(items) {
+ const groups = new Map();
+ for (const e of items) {
+  if (!e.issue) continue;
+  const b=e.business||{}, code=b.fields?.['诊断码']||b.fields?.['错误码'];
+  const signature=issueSignature(e);
+  const key=JSON.stringify([sourceLabel(e),b.category,b.stage,technicalHint(e).id,code||'',signature]);
+  if(!groups.has(key))groups.set(key,{title:code||signature,items:[]});
+  groups.get(key).items.push(e);
+ }
+ return [...groups.values()].sort((a,b)=>b.items.length-a.items.length);
+}
+function currentBusinessEvents(){
+ const outcome=$('businessOutcome').value,device=$('businessDevice').value.toLowerCase();
+ return filtered.filter(e=>e.business?.category===businessCategory&&(!outcome||e.business.outcome===outcome)&&(!device||e.business.device.toLowerCase().includes(device)));
+}
+function analysisLines(items){
+ const groups=groupIssues(items), counts=new Map();
+ for(const e of items){const c=e.business?.category;if(c)counts.set(c,(counts.get(c)||0)+1);}
+ const recognized=items.filter(e=>e.business?.category).length;
+ return [
+  items.length?`观察时间：${items[0].time} 至 ${items.at(-1).time}（日志原始时间，时区未知）。`:'当前范围没有可识别日志，请调整筛选或检查导入明细。',
+  `当前范围 ${items.length} 条日志，其中 ${recognized} 条识别为业务记录，${items.length-recognized} 条未识别业务。各业务分类互斥，加上未识别业务等于当前日志总数；业务记录数不代表操作次数。`,
+  `原始等级：${Object.keys(logLevels).map(level=>`${logLevelLabel(level)} ${items.filter(e=>e.level===level).length} 条`).join('；')}。等级与疑似异常判断分开统计。`,
+  ...(items.some(e=>e.level==='OTHER')?[`未知等级原始标签：${[...new Set(items.filter(e=>e.level==='OTHER').map(e=>e.rawLevel||'未提供'))].join('、')}；保留原文，不推断为错误或警告。`]:[]),
+  `主要业务：${[...counts].sort((a,b)=>b[1]-a[1]).map(([k,n])=>`${businessNames[k]} ${n} 条`).join('；')||'未识别'}。`,
+  `发现 ${groups.length} 类疑似异常，共 ${groups.reduce((n,g)=>n+g.items.length,0)} 条日志。${groups.length?'这是规则筛选结果，请通过证据确认实际影响。':'未发现疑似异常不代表没有问题。'}`,
+  '当前仅依据日志中的明确字段分析；不能据此确认根因、用户影响或最终恢复。'
+ ];
+}
+function renderEvidenceSummary(items){
+ const box=$('analysisSummary');box.replaceChildren();
+ const total=items.length, groups=groupIssues(items), issueCount=groups.reduce((n,g)=>n+g.items.length,0);
+ const recognized=items.filter(e=>e.business?.category).length, stats=requestSummary(items);
+ const first=items[0],last=items.at(-1);
+ const section=(className,title,content)=>{const el=document.createElement('section');el.className=className;const heading=document.createElement('h3');heading.textContent=title;el.append(heading,content);return el;};
+ const text=(value,className='')=>{const el=document.createElement('p');el.textContent=value;if(className)el.className=className;return el;};
+ const lead=document.createElement('div');lead.className='evidenceLead';
+ const leadLabel=document.createElement('span');leadLabel.className='evidenceKicker';leadLabel.textContent=issueCount?'需要优先核对':'当前没有高优先级异常';
+ const leadTitle=document.createElement('strong');leadTitle.textContent=issueCount?`发现 ${issueCount.toLocaleString()} 条疑似异常记录`:'当前范围未发现疑似异常记录';
+ const leadMeta=text(total?`覆盖 ${total.toLocaleString()} 条日志，异常记录占 ${(issueCount/Math.max(total,1)*100).toFixed(1)}%。`:'当前范围没有可识别日志。');
+ lead.append(leadLabel,leadTitle,leadMeta);box.append(lead);
+ const facts=document.createElement('div');facts.className='evidenceFacts';
+ const fact=(label,value,detail)=>{const card=document.createElement('article');card.className='evidenceFact';const name=document.createElement('span');name.textContent=label;const number=document.createElement('strong');number.textContent=value;card.append(name,number,text(detail));facts.append(card);};
+ fact('分析范围',total.toLocaleString(),first&&last?`${first.time} 至 ${last.time}`:'等待导入日志');
+ fact('业务识别',recognized.toLocaleString(),`${(total-recognized).toLocaleString()} 条未识别业务记录`);
+ fact('请求关联',stats.paired.toLocaleString(),`${stats.unmatched.toLocaleString()} 条未配对，${stats.ambiguous.toLocaleString()} 条冲突`);
+ box.append(facts);
+ const counts=new Map();for(const e of items){const c=e.business?.category;if(c)counts.set(c,(counts.get(c)||0)+1);}
+ const businessRows=document.createElement('div');businessRows.className='evidenceRows';
+ if(counts.size){for(const [key,count] of [...counts].sort((a,b)=>b[1]-a[1]).slice(0,6)){const row=document.createElement('div');const name=document.createElement('span');name.textContent=businessNames[key]||key;const value=document.createElement('strong');value.textContent=count.toLocaleString();row.append(name,value);businessRows.append(row);}}else businessRows.append(text('当前范围没有可识别业务。','evidenceEmpty'));
+ box.append(section('evidenceBlock','业务分布',businessRows));
+ const signal=document.createElement('div');signal.className=issueCount?'evidenceSignal evidenceSignalAlert':'evidenceSignal';
+ signal.append(text(issueCount?`规则筛选出 ${groups.length} 类异常信号，共 ${issueCount.toLocaleString()} 条记录。`:'规则筛选未发现异常信号。'),text(issueCount?'请打开“疑似异常”查看证据和关联过程。':'日志等级与内容语义仍可继续通过筛选查看。','evidenceHint'));
+ box.append(section('evidenceBlock','异常信号',signal));
+ const notes=document.createElement('details');notes.className='evidenceNotes';const summary=document.createElement('summary');summary.textContent='分析口径与完整统计';notes.append(summary);
+ const levels=Object.keys(logLevels).map(level=>`${logLevelLabel(level)} ${items.filter(e=>e.level===level).length} 条`).join('；');notes.append(text(`原始等级：${levels||'暂无记录'}。等级与疑似异常判断分开统计。`));
+ if(items.some(e=>e.level==='OTHER'))notes.append(text(`未知等级原始标签：${[...new Set(items.filter(e=>e.level==='OTHER').map(e=>e.rawLevel||'未提供'))].join('、')}；保留原文，不推断为错误或警告。`));
+ notes.append(text('当前仅依据日志中的明确字段分析，不能据此确认根因、用户影响或最终恢复。'));
+ box.append(notes);
+}
+function coverageLine(){
+ const ok=importReports.filter(r=>/^\d[\d,]* 条事件/.test(r.status)).length;
+ const skipped=importReports.filter(r=>r.status.startsWith('跳过')).length;
+ const containers=importReports.filter(r=>r.state==='container').length;
+ return `收到 ${importReports.length} 个文件/条目（含 ${containers} 个 ZIP 容器）；识别事件 ${ok} 个；不支持 ${skipped} 个；未导入或未识别 ${importReports.length-ok-skipped-containers} 个。支持 .log / .txt 与普通 ZIP 内文本；无记录时段不等于日志丢失。`;
+}
+function renderInsights(){
+ $('coverage').textContent=importReports.length?coverageLine():'导入日志后显示文件覆盖情况。';
+ const issueCount=groupIssues(filtered).reduce((n,g)=>n+g.items.length,0);
+ const total=filtered.length;
+ const headline=$('signalHeadline'), meta=$('signalMeta');
+ if(headline&&meta){
+  if(!total){headline.textContent='等待导入日志';meta.textContent='导入后，这里会先告诉你当前范围最值得关注的变化。';}
+  else if(issueCount){headline.textContent=`发现 ${issueCount.toLocaleString()} 条疑似异常日志，建议先看证据`;meta.textContent=`当前范围共 ${total.toLocaleString()} 条日志，疑似异常占 ${(issueCount/total*100).toFixed(1)}%。`}
+  else {headline.textContent='当前范围未发现疑似异常日志';meta.textContent=`已分析 ${total.toLocaleString()} 条日志，可继续查看时间分布和业务记录。`;}
+ }
+ renderEvidenceSummary(filtered);
+ renderFocus(groupIssues(filtered));
+ $('exportBusiness').disabled=!currentBusinessEvents().length;
+ $('exportReport').disabled=!filtered.length;
+}
+const originalReportFiles=reportFiles;
+reportFiles=function(reports){importReports=reports;originalReportFiles(reports);};
+const originalRenderBusiness=renderBusiness;
+renderBusiness=function(){originalRenderBusiness();renderDiagnosis();};
+function downloadAnalysis(name,payload,type='application/json'){
+ const url=URL.createObjectURL(new Blob([typeof payload==='string'?payload:JSON.stringify(payload,null,2)],{type}));
+ const link=document.createElement('a');link.href=url;link.download=name;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+$('exportBusiness').onclick=()=>downloadAnalysis('loglens-business.json',{tool:'LogLens',scope:'当前业务视图',note:'包含原始日志，共享前请检查敏感信息。',filters:{category:businessCategory,outcome:$('businessOutcome').value,device:$('businessDevice').value,query:$('search').value,module:$('module').value,level:$('level').value,kind:$('kind').value,scene:$('scene').value,timeWindow},events:currentBusinessEvents()});
+$('locateTime').onclick=()=>{
+ const input=$('problemTime');
+ if(!input.value){$('timeNotice').textContent='请先填写问题发生时间。';return;}
+ const stamp=Date.parse(input.value+'Z'), radius=Number($('timeRadius').value)*60000;
+ if(!Number.isFinite(stamp)){$('timeNotice').textContent='时间无效，请重新填写。';return;}
+ resetFilters();timeWindow=[stamp-radius,stamp+radius];applyFilters();
+ $('timeNotice').textContent=`已清除其他筛选，定位到问题前后 ${radius/60000} 分钟。匹配 ${filtered.length} 条记录。`;
+};</script><script>// Default experience: a small set of leads, with details only on demand.
+let focusLimit=3, focusSource=null, focusGroups=[], selectedIssue=null;
+function issueHeadline(group){
+ const e=group.items.at(-1),stage=stageNames[e.business?.stage];
+ if(!e.business?.category){const hint=technicalHint(e);return hint.id==='unknown'?sourceLabel(e)+' 的异常记录':hint.label+' · '+sourceLabel(e);}
+ return `${stage||diagnosticFor(e).label}出现${e.business?.outcome==='fail'?'失败记录':'异常线索'}`;
+}
+function shortRecovery(e,items){
+ const insufficient=recoveryEligibility(e);if(insufficient)return insufficient;
+ const result=recoveryEvidence(e,items);
+ return result.status==='stage_success'?'同一操作的这个阶段随后记录成功，最终结果仍需确认。':result.status==='possible'?'同设备随后出现同阶段成功，但可能是另一次尝试。':'是否恢复还不确定，日志中没有找到可关联的后续成功记录。';
+}
+function selectedIssueEvidence(group,items){
+ const last=group.items.at(-1),ids=new Set(group.items.map(e=>e.id));
+ const related=items.filter(e=>{
+  if(ids.has(e.id)||e.id===last.partner)return true;
+  if(evidenceScope(e)!==evidenceScope(last)||e.business?.category!==last.business?.category)return false;
+  if(last.operationId)return e.operationId===last.operationId;
+  return !!last.business?.device&&e.business?.device===last.business.device&&Math.abs(e.stamp-last.stamp)<=300000;
+ });
+ return related.slice().sort((a,b)=>a.stamp-b.stamp||a.id-b.id);
+}
+function renderFocus(groups){
+ if(focusSource!==filtered){focusLimit=3;focusSource=filtered;}
+ focusGroups=groups;
+ const loaded=importReports.length>0||events.length>0;
+ $('focusResults').hidden=!loaded;
+ $('issuesEmpty').hidden=loaded;
+ const omitted=importReports.filter(r=>r.state?['unsupported','error','unrecognized'].includes(r.state):!/^\d[\d,]* 条事件/.test(r.status)).length;
+ if(events.length&&!$('problemTime').value)$('problemTime').value=events[0].time.slice(0,19).replace(' ','T');
+ $('quickCoverage').textContent=events.length?`${events[0].time.slice(0,19)} 至 ${events.at(-1).time.slice(0,19)}${omitted?` · ${omitted} 个文件或条目未分析，请查看导入明细。`:' · 已识别所导入的文本日志。'}`:loaded?'没有读到可分析的日志，请展开导入明细查看原因。':'支持 .log、.txt 和普通 ZIP；日志只在本机分析。';
+ const active=['search','module','level','kind','scene'].some(id=>$(id).value)||!!timeWindow;
+ $('focusScope').hidden=!active;
+ $('scopeLabel').textContent=`当前有全局筛选，显示 ${filtered.length} / ${events.length} 条记录的分析结果。`;
+ $('focusTitle').textContent=groups.length?'值得查看的异常记录':!events.length?'暂时无法分析':!filtered.length?'当前筛选没有匹配记录':'暂未发现明确的异常线索';
+ $('issueGroupCount').textContent=groups.length?`${groups.length} 组异常记录，展示 ${Math.min(focusLimit,groups.length)} 组。按相似记录数排序，不代表故障数量或严重程度。`:events.length?'这不代表 App 一定正常；可切换到“日志检索”，按问题时间查看记录。':'请使用支持的文本日志，或先将 SDK 日志解码。';
+ const list=$('issueCards');list.replaceChildren();
+ for(const group of groups.slice(0,focusLimit)){
+  const last=group.items.at(-1),card=document.createElement('article'),title=document.createElement('h3'),meta=document.createElement('p'),result=document.createElement('p'),actions=document.createElement('div');
+  title.textContent=issueHeadline(group);
+  meta.className='issueMeta';meta.textContent=`${sourceLabel(last)} · ${group.items.length} 条相似记录 · 最近 ${last.time.slice(0,19)}`;
+  const excerpt=document.createElement('p');excerpt.className='issueExcerpt';excerpt.textContent=issueExcerpt(last);
+  const basis=document.createElement('p');basis.className='issueBasis';basis.textContent='末条入选依据：'+issueReasons(last).join('；');
+  result.textContent=shortRecovery(last,filtered);
+  actions.className='actions';
+  const open=document.createElement('button');open.className='primary';open.textContent=last.business?.category?'查看相关过程':'查看原文与依据';open.onclick=()=>openIssue(group);
+  const report=document.createElement('button');report.textContent='导出此问题';report.onclick=()=>exportIssue(group);
+  actions.append(open,report);card.append(title,meta,excerpt,basis,result,actions);list.append(card);
+ }
+ $('moreIssues').hidden=groups.length<=focusLimit;
+ $('moreIssues').textContent=`再看 ${Math.min(5,Math.max(0,groups.length-focusLimit))} 组记录`;
+}
+function openIssue(group){
+ selectedIssue=group;
+ const last=group.items.at(-1),rule=diagnosticFor(last),items=selectedIssueEvidence(group,filtered);
+ $('issueTitle').textContent=issueHeadline(group);
+ $('issueCount').textContent=group.items.length.toLocaleString();$('issueFirst').textContent=group.items[0].time.slice(0,19);$('issueLast').textContent=last.time.slice(0,19);$('issueSource').textContent=sourceLabel(last);
+ $('issueFinding').textContent=`判断依据：${issueReasons(last).join('；')}。${rule.impact}。摘要：${issueExcerpt(last)}`;
+ $('issueRecovery').textContent=shortRecovery(last,filtered);
+ $('issueNext').textContent=rule.next;
+ $('issueAssociation').textContent=last.operationId?'下面展示本类线索及末次记录具有相同操作标识的过程。':last.business?.device?'下面展示本类线索及末次记录前后 5 分钟内的同设备记录；它们可能相关，但不一定是同一次操作。':'缺少明确操作或设备标识，只展示本类记录及可确认的配对响应，不拼接猜测的过程。';
+ const flow=$('issueFlow');flow.replaceChildren();
+ const display=items.slice().sort((a,b)=>Math.abs(a.stamp-last.stamp)-Math.abs(b.stamp-last.stamp)).slice(0,50).sort((a,b)=>a.stamp-b.stamp||a.id-b.id);
+ for(const e of display){const row=document.createElement('div'),text=document.createElement('span'),button=document.createElement('button');
+  text.textContent=`${e.time} · ${stageNames[e.business?.stage]||(sourceLabel(e)+' / '+diagnosticFor(e).label)} · ${outcomeNames[e.business?.outcome]||(e.issue?'异常线索':'记录')}`;
+  button.textContent='查看原文';button.onclick=()=>openDetail(e.id);row.append(logLevelBadge(e.level),text,button);flow.append(row);
+ }
+ $('issueFlowCount').textContent=`关联 ${items.length} 条，展示距末次线索最近的 ${display.length} 条。导出包含全部关联记录。`;
+ $('issueActual').value='';$('issueExpected').value='';$('issueNotes').open=false;
+ if(!$('issueDialog').open)$('issueDialog').showModal();
+}
+function exportIssue(group,actual='',expected=''){
+ const items=selectedIssueEvidence(group,filtered),files=new Set(items.map(e=>e.file));
+ const reports=importReports.filter(r=>files.has(r.name));
+ const report=buildReadableReport(items,reports,actual,expected).replace('范围：当前全局筛选。','范围：仅本类问题记录，以及末次记录的关联证据；来自当前筛选结果，不包含其他无关记录。');
+ downloadAnalysis('loglens-issue.md',report,'text/markdown;charset=utf-8');
+}
+$('moreIssues').onclick=()=>{focusLimit+=5;renderFocus(focusGroups);};
+$('resetFocus').onclick=()=>{resetFilters();comparison=[];workflowPage=0;renderChart();applyFilters();};
+$('closeIssue').onclick=()=>$('issueDialog').close();
+$('exportIssue').onclick=()=>{if(selectedIssue)exportIssue(selectedIssue,$('issueActual').value,$('issueExpected').value);};</script><script>let requestDashboardPage=0;
+function requestPairs(items){
+ const byId=new Map(events.map(e=>[e.id,e])), seen=new Set(), result=[];
+ for(const e of items.filter(x=>x.direction)){
+  if(seen.has(e.id))continue;
+  const partner=e.partner!==undefined?byId.get(e.partner):null;
+  const group=e.pairStatus==='ambiguous'?'ambiguous':partner?'paired':'unmatched';
+  const first=e.direction==='request'?e:partner||e, second=e.direction==='response'?e:partner;
+  const ids=[e.id,partner?.id].filter(id=>id!==undefined);ids.forEach(id=>seen.add(id));
+  result.push({id:e.id,status:group,request:first.direction==='request'?first:null,response:second?.direction==='response'?second:null,duration:e.duration??second?.duration??null});
+ }
+ return result.sort((a,b)=>(b.request||b.response).stamp-(a.request||a.response).stamp);
+}
+function renderRequestDashboard(){
+ const source=$('requestSource').value || 'cozy';
+ const all=requestPairs(filtered).filter(pair=>{
+  const cozy=Boolean(pair.request?.cozyRequest || pair.response?.cozyRequest);
+  return source==='all' || (source==='cozy' ? cozy : !cozy);
+ });
+ const status=$('requestStatus').value,query=$('requestQuery').value.trim().toLowerCase();
+ const pairs=all.filter(p=>!status||p.status===status).filter(p=>{const s=[p.request?.api,p.response?.api,p.request?.requestHost,p.response?.requestHost,p.request?.requestId,p.response?.requestId,p.request?.file,p.response?.file].join(' ').toLowerCase();return !query||s.includes(query);});
+ const counts={paired:all.filter(p=>p.status==='paired').length,unmatched:all.filter(p=>p.status==='unmatched').length,ambiguous:all.filter(p=>p.status==='ambiguous').length};
+ const metrics=$('requestMetrics');metrics.replaceChildren();for(const [key,label] of [['paired','已配对'],['unmatched','未配对'],['ambiguous','冲突']]){const card=document.createElement('article');card.className='requestMetric '+key;const name=document.createElement('span');name.textContent=label;const value=document.createElement('strong');value.textContent=counts[key].toLocaleString();card.append(name,value);metrics.append(card);}const durations=all.filter(p=>p.status==='paired'&&p.duration!==null).map(p=>p.duration).sort((a,b)=>a-b);const avg=durations.length?Math.round(durations.reduce((a,b)=>a+b,0)/durations.length):null;const latency=document.createElement('article');latency.className='requestMetric latency';latency.innerHTML='<span>平均响应耗时</span><strong>'+(avg===null?'—':avg+' ms')+'</strong>';metrics.append(latency);
+ $('requestNotice').textContent=`当前范围 ${all.length.toLocaleString()} 组请求记录，显示 ${pairs.length.toLocaleString()} 组。未配对不代表失败，冲突记录不会自动关联。`;
+ const rows=$('requestRows');rows.replaceChildren();const pages=Math.ceil(pairs.length/20);requestDashboardPage=Math.max(0,Math.min(requestDashboardPage,pages-1));
+ for(const p of pairs.slice(requestDashboardPage*20,requestDashboardPage*20+20)){const row=document.createElement('article');row.className='requestRow '+p.status;const head=document.createElement('div');head.className='requestRowHead';const badge=document.createElement('span');badge.className='requestStatusBadge';badge.textContent=p.status==='paired'?'已配对':p.status==='ambiguous'?'冲突':'未配对';const api=document.createElement('strong');api.textContent=p.request?.api||p.response?.api||'未记录接口';const basis=document.createElement('span');basis.className='requestBasis';const pairBasis=p.request?.pairBasis||p.response?.pairBasis;basis.textContent=pairBasis==='requestId_scope_fallback'?'同ID推定':pairBasis==='api_time_fallback'?'时间/API推定':'';const time=document.createElement('time');time.textContent=(p.request||p.response).time;head.append(badge,api);
+  const endpoint=p.request?.requestHost || p.response?.requestHost || ((p.request||p.response).cozyRequest?'按 /api/app 路径识别':'');
+  if(endpoint){const host=document.createElement('small');host.textContent=endpoint;head.append(host);}
+  if(basis.textContent)head.append(basis);head.append(time);const body=document.createElement('div');body.className='requestRowBody';const req=document.createElement('button');req.textContent='请求 '+(p.request?.requestId||'无 requestId')+(p.request?' · '+p.request.time:' · 缺失');req.onclick=()=>p.request&&openDetail(p.request.id);const res=document.createElement('button');res.textContent=(p.response?.networkError?'请求错误 ':'响应 ')+(p.response?.requestId||'无 requestId')+(p.response?' · '+p.response.time:' · 缺失');res.onclick=()=>p.response&&openDetail(p.response.id);const elapsed=document.createElement('span');elapsed.className='requestElapsed';elapsed.textContent=p.duration===null?'—':p.duration+' ms';body.append(req,res,elapsed);row.append(head,body);rows.append(row);}
+ if(!pairs.length)rows.textContent='当前筛选没有请求记录。';$('requestPage').textContent=`${pages?requestDashboardPage+1:0} / ${pages}`;$('requestPrev').disabled=requestDashboardPage===0;$('requestNext').disabled=requestDashboardPage>=pages-1;
+}
+$('requestSource').onchange=()=>{requestDashboardPage=0;renderRequestDashboard();};
+$('requestStatus').onchange=()=>{requestDashboardPage=0;renderRequestDashboard();};$('requestQuery').oninput=()=>{requestDashboardPage=0;renderRequestDashboard();};$('requestPrev').onclick=()=>{requestDashboardPage--;renderRequestDashboard();};$('requestNext').onclick=()=>{requestDashboardPage++;renderRequestDashboard();};</script><script>let workflowPage=0, workflowItems=[], comparison=[];
+const confidenceNames={explicit:'明确操作标识',request:'已配对请求',device:'同设备 · 可能相关',unassigned:'未归属 · 单条记录'};
+function evidenceButton(e){const button=document.createElement('button');levelText(button,e,`${e.time} · ${stageNames[e.business?.stage]||e.module} · ${outcomeNames[e.business?.outcome]||'未标记'}`);button.onclick=()=>openDetail(e.id);return button;}
+function renderWorkflows(){
+ const all=buildProcesses(filtered),type=$('processType').value;
+ workflowItems=all.filter(p=>!type||p.confidence===type);
+ const pages=Math.ceil(workflowItems.length/12);workflowPage=Math.max(0,Math.min(workflowPage,pages-1));
+ $('processCount').textContent=`${workflowItems.length} 组相关记录；${all.filter(p=>p.confidence==='unassigned').length} 条缺少关联标识。不是业务尝试次数。`;
+ const list=$('processList');list.replaceChildren();
+ for(const p of workflowItems.slice(workflowPage*12,workflowPage*12+12)){
+  const card=document.createElement('article'),heading=document.createElement('h3'),description=document.createElement('p');
+  heading.textContent=`${businessNames[p.category]} · ${p.result}`;
+  description.textContent=`${confidenceNames[p.confidence]} | ${p.items[0].time} 至 ${p.items.at(-1).time} | 记录跨度 ${p.elapsed} ms`;
+  card.append(heading,description);
+  const stages=document.createElement('p');stages.textContent=p.items.slice(0,12).map(e=>`${stageNames[e.business.stage]||e.business.stage} (${outcomeNames[e.business.outcome]||'未标记'})`).join(' → ')+(p.items.length>12?' …':'');card.append(stages);
+  const compare=document.createElement('button');compare.textContent=comparison.includes(p.items[0].id)?'已选为对比项':'加入过程对比';compare.onclick=()=>{const id=p.items[0].id;if(comparison.includes(id))comparison=comparison.filter(x=>x!==id);else comparison=[...comparison.slice(-1),id];renderWorkflows();};card.append(compare);
+  const details=document.createElement('details'),summary=document.createElement('summary');summary.textContent=`证据 ${p.items.length} 条（展示前 100 条）`;details.append(summary);for(const e of p.items.slice(0,100))details.append(evidenceButton(e));card.append(details);list.append(card);
+ }
+ if(!workflowItems.length)list.textContent='当前范围没有匹配的业务记录。';
+ $('processPage').textContent=`${pages?workflowPage+1:0} / ${pages}`;$('processPrev').disabled=workflowPage===0;$('processNext').disabled=workflowPage>=pages-1;
+ const selected=comparison.map(id=>all.find(p=>p.items[0].id===id)).filter(Boolean);
+ const panel=$('comparison');panel.replaceChildren();
+ if(selected.length!==2){panel.textContent='选择两组记录，对照阶段、结果与记录跨度。可选择成功记录与异常记录进行比较。';return;}
+ const note=document.createElement('p');note.textContent=selected[0].category===selected[1].category?'对比只呈现观察到的差异，缺失阶段不代表未执行。':'两组属于不同业务，不能据此比较成功率或归因。';panel.append(note);
+ const columns=document.createElement('div');columns.className='comparisonColumns';
+ for(const p of selected){const column=document.createElement('div'),title=document.createElement('h3');title.textContent=`${businessNames[p.category]} · ${p.result} · ${p.elapsed} ms`;column.append(title);for(const e of p.items.slice(0,100))column.append(evidenceButton(e));columns.append(column);}panel.append(columns);
+}
+function renderDiagnosis(){
+ renderInsights();renderWorkflows();renderRequestDashboard();
+ const stats=requestSummary(filtered);
+ $('requestQuality').textContent=`当前范围：${stats.paired} 个已配对请求；${stats.unmatched} 条未配对记录；${stats.ambiguous} 条冲突记录；客户端日志间隔 P95 ${stats.p95===null?'—':stats.p95+' ms'}。未配对不代表失败。`;
+ const env=$('summaryEnvironment');env.replaceChildren();const fields=new Map();
+ for(const e of filtered)for(const [key,value]of Object.entries(e.environment||{})){if(!fields.has(key))fields.set(key,new Set());fields.get(key).add(value);}
+ for(const [key,values]of fields){const span=document.createElement('span');span.textContent=key+' '+[...values].join(' / ');env.append(span);}
+ if(!fields.size)env.textContent='当前范围没有明确的版本或系统字段。';
+}
+$('processType').onchange=()=>{workflowPage=0;renderWorkflows();};
+$('processPrev').onclick=()=>{workflowPage--;renderWorkflows();};$('processNext').onclick=()=>{workflowPage++;renderWorkflows();};
+$('scene').onchange=()=>{page=0;workflowPage=0;comparison=[];applyFilters();};
+$('exportReport').onclick=()=>downloadAnalysis('loglens-report.md',buildReadableReport(filtered,importReports,$('actualBehavior').value,$('expectedBehavior').value),'text/markdown;charset=utf-8');
+let detailEventId=null, contextCurrentRow=null;
+function centerContext(){
+ const box=$('context');
+ if(!contextCurrentRow||!$('detail').open)return;
+ box.scrollTop=Math.max(0,contextCurrentRow.offsetTop-(box.clientHeight-Math.min(box.clientHeight,contextCurrentRow.offsetHeight))/2);
+}
+function renderEvidenceContext(){
+ const e=events[detailEventId];if(!e)return;
+ const mode=$('contextMode').value||'file',radius=Number($('contextRadius').value||5)*60000;
+ $('contextRadius').hidden=mode==='file'||mode==='request';
+ const near=events.filter(x=>Math.abs(x.stamp-e.stamp)<=radius);
+ let relevant, nearest;
+ if(mode==='file'){
+  const siblings=events.filter(x=>x.file===e.file).sort((a,b)=>a.line-b.line||a.id-b.id),idx=siblings.findIndex(x=>x.id===e.id);
+  relevant=siblings;nearest=siblings.slice(Math.max(0,idx-50),idx+51);
+ }else{
+  relevant=(mode==='request'?events:near).filter(x=>mode==='time'||(mode==='device'&&e.business?.device&&x.business?.device===e.business.device)||(mode==='operation'&&e.operationId&&x.operationId===e.operationId&&evidenceScope(x)===evidenceScope(e))||(mode==='request'&&(x.id===e.id||x.id===e.partner)));
+  nearest=relevant.filter(x=>x.id!==e.id).sort((a,b)=>Math.abs(a.stamp-e.stamp)-Math.abs(b.stamp-e.stamp)).slice(0,100);
+  nearest.push(e);nearest.sort((a,b)=>a.stamp-b.stamp||a.id-b.id);
+ }
+ $('context').replaceChildren();$('contextNotice').textContent=mode==='file'?`以第 ${e.line} 行为中心，展示前后各最多 50 条日志（共 ${nearest.length} 条）。按文件行序阅读，点击不会切换当前日志。`:`展示当前日志及附近匹配记录，共 ${nearest.length} 条；时间邻近不代表同一次操作。未匹配关联条件时仍保留当前日志。`;
+ contextCurrentRow=null;
+ for(const n of nearest){
+  const row=document.createElement('div');
+  row.className='contextRow'+(n.id===e.id?' currentContext':'');
+  row.dataset.id=n.id;
+  const body=(n.raw??n.message).replace(/^\[\d{4}-\d{2}-\d{2} [^\]\r\n]+\][ \t]*\[[^\]\r\n]*\][ \t]*/, '');
+  levelText(row,n,(n.id===e.id?'【当前日志】 ':'')+`${n.time} · ${mode==='file'?'第 '+n.line+' 行':n.file+':'+n.line}\n${body}`);
+  $('context').append(row);
+  if(n.id===e.id){contextCurrentRow=row;row.setAttribute('aria-current','true');}
+ }
+ centerContext();
+}
+openDetail=function(id){const e=events[id];if(!e)return;const dialog=$('detail');detailEventId=id;$('contextMode').value='file';$('detailLevel').replaceChildren(logLevelBadge(e.level));showBusinessFields(e);$('source').textContent=`${e.time} · ${e.file} · 第 ${e.line}–${e.endLine} 行 · ${e.location}`;$('source').title=$('source').textContent;$('raw').textContent=e.raw;$('reason').textContent=[e.reason,e.pairStatus==='ambiguous'?'请求关联存在冲突，未自动配对。':e.pairStatus==='unmatched'?'未找到唯一配对记录；不代表请求失败。':''].filter(Boolean).join(' ');renderEvidenceContext();if(!dialog.open)dialog.showModal();dialog.scrollTop=0;centerContext();};
+$('contextLocate').onclick=centerContext;
+$('contextMode').onchange=renderEvidenceContext;$('contextRadius').onchange=renderEvidenceContext;
+renderDiagnosis();</script><script>const analysisTabs=['summary','ai','logs','business','requests','report','issues'];
+let activeAnalysisTab='summary';
+function selectAnalysisTab(name,moveFocus=false){
+ if(!analysisTabs.includes(name))return;
+ activeAnalysisTab=name;
+ for(const key of analysisTabs){
+  const selected=key===name,tab=$('tab-'+key);
+  tab.setAttribute('aria-selected',String(selected));tab.tabIndex=selected?0:-1;
+  $('panel-'+key).hidden=!selected;
+ }
+ if(moveFocus)$('tab-'+name).focus();
+}
+for(const name of analysisTabs){
+ const tab=$('tab-'+name);
+ tab.onclick=()=>selectAnalysisTab(name);
+ tab.onkeydown=event=>{
+  const i=analysisTabs.indexOf(name);let next;
+  if(event.key==='ArrowRight')next=(i+1)%analysisTabs.length;
+  if(event.key==='ArrowLeft')next=(i+analysisTabs.length-1)%analysisTabs.length;
+  if(event.key==='Home')next=0;
+  if(event.key==='End')next=analysisTabs.length-1;
+  if(next!==undefined){event.preventDefault();selectAnalysisTab(analysisTabs[next],true);}
+ };
+}
+$('goIssues').onclick=()=>selectAnalysisTab('issues',true);
+$('goLogs').onclick=()=>selectAnalysisTab('logs',true);
+selectAnalysisTab('summary');</script><script>// Desktop-only enhancement. Browser analysis remains independently usable.
+if(typeof window!=='undefined'&&window.loglensDesktop){
+ (()=>{
+  const bridge=window.loglensDesktop,el=(tag,text)=>{const e=document.createElement(tag);if(text)e.textContent=text;return e;};
+  const section=el('section');section.id='desktopDiagnosis';section.className='panel';
+  const heading=el('div');heading.className='aiHeading';const title=el('div');title.append(el('h2','AI 日志诊断'),el('p','从问题出发，沿着证据一步步查清。'));heading.append(title);section.append(heading);
+  const settings=el('details');settings.className='aiSettings';const settingsSummary=el('summary','模型连接'),connectionState=el('span','待配置');connectionState.className='aiConnectionState';settingsSummary.append(connectionState);settings.append(settingsSummary);const settingsGrid=el('div');settingsGrid.className='aiSettingsGrid';settings.append(settingsGrid);
+  const field=(title,type,placeholder)=>{const label=el('label',title),input=el('input');input.type=type;input.placeholder=placeholder;input.autocomplete='off';label.className='aiField';label.append(input);settingsGrid.append(label);return input;};
+  const base=field('API 根地址','url','https://模型服务地址/v1'),model=field('模型名称','text','模型 ID'),key=field('API Key','password','仅在当前进程保存');
+  const save=el('button','应用配置'),configStatus=el('p','连接信息仅在本次运行中保存');const settingsFooter=el('div');settingsFooter.className='aiSettingsFooter';settingsFooter.append(configStatus,save);settings.append(settingsFooter);
+  save.onclick=async()=>{try{await bridge.configure({baseUrl:base.value,model:model.value,apiKey:key.value});key.value='';configStatus.textContent='配置已应用';connectionState.textContent='已配置 · '+model.value;settings.open=false;}catch(e){configStatus.textContent=e.message;}};
+  const conversation=el('div');conversation.id='aiConversation';conversation.setAttribute('aria-live','polite');
+  let notesBody=el('div');notesBody.className='aiNoteBody';
+  let progress=el('ol');progress.className='aiProgress';
+  let result=el('div');result.id='aiResult';
+  const question=el('textarea');question.id='aiQuestion';question.maxLength=4000;question.placeholder='描述问题，或回答 AI 的追问；可补充时间、设备、观察到的现象。';
+  const label=el('label','问题或补充信息');label.append(question);
+  const mode=el('select');mode.setAttribute('aria-label','调查预算');for(const [value,text]of [['quick','快速排查 · 最多12轮'],['deep','深入调查 · 最多32轮']]){const option=el('option',text);option.value=value;mode.append(option);}
+  const start=el('button','发送并调查'),resume=el('button','继续调查'),fresh=el('button','新建调查'),stop=el('button','停止');
+  start.id='aiStart';start.className='primary';stop.disabled=true;resume.disabled=true;
+  const controls=el('div');controls.className='aiControls';const sendActions=el('div');sendActions.className='aiSendActions';sendActions.append(stop,start);controls.append(mode,sendActions);const secondaryActions=el('div');secondaryActions.className='aiSecondaryActions';secondaryActions.append(resume,fresh);
+  const status=el('p');status.id='aiStatus';status.setAttribute('role','status');
+  const intro=el('div');intro.className='aiIntro';intro.append(el('h3','遇到了什么问题？'),el('p','告诉我发生了什么、预期是什么。如果知道大致时间或设备，也可以一起补充。'));const composer=el('div');composer.className='aiComposer';composer.append(label,controls);const main=el('div');main.className='aiMain';main.append(intro,conversation,status,composer,secondaryActions);const workspace=el('div');workspace.className='aiWorkspace aiConversationLayout';workspace.append(main);const privacy=el('p','日志在本地检索，必要的脱敏片段会发送到配置的模型服务。请仅使用允许发送的数据。');privacy.className='aiPrivacy';section.append(settings,workspace,privacy);$('panel-ai').replaceChildren(section);
+  const footer=document.querySelector('.localFootnote');if(footer)footer.textContent='本地分析不上传日志；AI 调查会发送问题与必要的脱敏证据到你配置的模型服务。';
+  let source=null,datasetId=null,running=false,stopRequested=false,generation=0,newSession=true,hasSession=false,activeRun=null;
+  function message(role,text){intro.hidden=true;const card=el('article');card.className='aiMessage';card.append(el('strong',role),el('p',text));conversation.append(card);}
+  function beginRun(){
+   const card=el('article');card.className='aiRun isRunning';card.setAttribute('aria-busy','true');
+   const heading=el('div');heading.className='aiRunHeading';const dot=el('span');dot.className='aiRunDot';dot.setAttribute('aria-hidden','true');
+   const title=el('strong','AI 正在调查'),clock=el('span','0 秒');clock.className='aiRunClock';heading.append(dot,title,clock);
+   const latest=el('p','正在准备日志…');latest.className='aiRunLatest';latest.setAttribute('role','status');
+   const recent=el('div');recent.className='aiRunRecent';
+   const history=el('details');history.className='aiRunHistory';const historySummary=el('summary','执行记录');progress=el('ol');progress.className='aiProgress';history.append(historySummary,progress);
+   const notes=el('details');notes.className='aiRunNotes';notes.open=true;notes.hidden=true;notes.append(el('summary','调查笔记'));notesBody=el('div');notesBody.className='aiNoteBody';notes.append(notesBody);
+   const body=el('div'),meta=el('p');meta.className='aiRunMeta';card.append(heading,latest,recent,history,notes,body,meta);conversation.append(card);
+   const run={card,title,clock,latest,recent,historySummary,notes,body,meta,started:Date.now(),steps:0,timer:null};
+   run.timer=setInterval(()=>{clock.textContent=Math.floor((Date.now()-run.started)/1000)+' 秒';},1000);run.timer.unref?.();
+   activeRun=run;card.scrollIntoView?.({block:'nearest',behavior:'smooth'});return run;
+  }
+  function finishRun(run,title,text,kind='done'){
+   if(!run)return;clearInterval(run.timer);run.card.className='aiRun '+kind;run.card.setAttribute('aria-busy','false');run.title.textContent=title;
+   run.clock.textContent=Math.floor((Date.now()-run.started)/1000)+' 秒';if(text)run.latest.textContent=text;
+  }
+  function refs(ids){const row=el('div');row.className='aiRefs';for(const id of ids){const button=el('button',id);button.onclick=()=>{if(source!==events){reset();return;}openDetail(Number(id.slice(1)));};row.append(button);}return row;}
+  function renderNotes(value){if(activeRun)activeRun.notes.hidden=!(value.facts.length||value.hypotheses.length||value.openQuestions.length);notesBody.replaceChildren();for(const [key,title]of [['facts','日志观察'],['hypotheses','候选解释（非事实）']]){notesBody.append(el('h4',title));for(const item of value[key])notesBody.append(el('p',item.text),refs(item.evidenceIds));}notesBody.append(el('h4','待核对'));for(const text of value.openQuestions)notesBody.append(el('p',text));}
+  function render(diagnosis){
+   result.id='';result=el('div');result.id='aiResult';activeRun.body.append(result);result.append(el('h3',({insufficient_evidence:'当前证据不足',hypothesis:'候选解释，尚待验证',supported_stage:'有证据支持的问题环节'})[diagnosis.status]),el('p',diagnosis.summary));
+   for(const item of diagnosis.observations)result.append(el('p',item.text),refs(item.evidenceIds));
+   for(const item of diagnosis.hypotheses){result.append(el('h4','候选解释'),el('p',item.text),refs(item.evidenceIds),el('p','还缺：'+item.missingEvidence.join('；')));if(item.counterEvidenceIds.length)result.append(el('p','反证 / 冲突证据'),refs(item.counterEvidenceIds));}
+   result.append(el('h4','限制与下一步'));for(const text of [...diagnosis.limitations,...diagnosis.nextChecks])result.append(el('p',text));
+   result.append(el('p','引用存在不表示解释已经成立，请核对原文。后续证据可能改变此判断。'));
+  }
+  function reset(){finishRun(activeRun,'已停止','日志数据已变化','paused');activeRun=null;generation++;bridge.cancel().catch(()=>{});source=null;datasetId=null;hasSession=false;newSession=true;result.replaceChildren();conversation.replaceChildren();notesBody.replaceChildren();progress.replaceChildren();resume.disabled=true;intro.hidden=false;status.textContent='日志已就绪，可以开始新的调查。';}
+  window.addEventListener('loglens-import-start',reset);
+  bridge.onProgress(update=>{
+   if(!running||!activeRun||update.datasetId!==datasetId)return;
+   const text=update.message.replace('模型正在选择下一步调查动作','正在分析证据，决定下一步查询').replace(/\bsearch\b/g,'搜索日志').replace(/\bcontext\b/g,'查看上下文').replace(/\brelated\b/g,'查询关联记录').replace(/\baggregate\b/g,'汇总日志').replace(/\bcompare\b/g,'对比过程').replace(/\bread\b/g,'读取片段').replace(/\boverview\b/g,'查看概况');
+   activeRun.latest.textContent=text;progress.append(el('li',text));activeRun.steps++;activeRun.historySummary.textContent='全部执行记录 · '+activeRun.steps+' 项';
+   const previous=activeRun.recent.children.length?Array.from(activeRun.recent.children).slice(-2):[];activeRun.recent.replaceChildren(...previous,el('p',text));
+   if(update.notes)renderNotes(update.notes);
+  });
+  stop.onclick=()=>{stopRequested=true;bridge.cancel().catch(()=>{});if(activeRun)activeRun.latest.textContent='正在停止，保留已获得的证据…';stop.disabled=true;};
+  fresh.onclick=()=>{if(running)return;activeRun=null;newSession=true;hasSession=false;conversation.replaceChildren();result.replaceChildren();notesBody.replaceChildren();progress.replaceChildren();resume.disabled=true;intro.hidden=false;status.textContent='已新建调查，请描述问题。';question.focus();};
+  async function send(text){
+   if(running)return;if(busy){status.textContent='请等待日志导入完成。';return;}if(!events.length){status.textContent='请先导入日志或试用示例。';return;}if(!text.trim()){status.textContent='请填写问题或补充信息。';return;}
+   running=true;stopRequested=false;start.disabled=fresh.disabled=mode.disabled=true;stop.disabled=false;resume.disabled=true;const current=++generation;message('你',text);const run=beginRun();status.textContent='';question.value='';
+   try{
+    if(source!==events||!datasetId){
+     run.latest.textContent='正在准备本地日志数据集…';const importedSource=events;
+     const imported=await bridge.importDataset({events:events.map(e=>({id:e.id,stamp:e.stamp,time:e.time,file:e.file,line:e.line,endLine:e.endLine,message:e.message,module:e.module,level:e.level,business:e.business,operationId:e.operationId,sessionId:e.sessionId,requestId:e.requestId,partner:e.partner,pairBasis:e.pairBasis})),reports:importReports.map(r=>({name:r.name,status:r.status,unmatched:r.unmatched}))});
+     if(current!==generation)return;source=importedSource;datasetId=imported.datasetId;
+    }
+    if(stopRequested){finishRun(run,'已停止','本次未开始模型调查。','paused');return;}
+    run.latest.textContent='正在分析问题与日志概况…';
+    const answer=await bridge.diagnose({datasetId,question:text,mode:mode.value,newSession});
+    if(current!==generation||source!==events||answer.datasetId!==datasetId)return;
+    newSession=false;hasSession=true;renderNotes(answer.notes);
+    if(answer.kind==='needs_input'){
+     finishRun(run,'等待你的补充',answer.ask.question,'waiting');
+     const options=el('div');for(const text of answer.ask.options){const button=el('button',text);button.onclick=()=>{if(!running)question.value=text;};options.append(button);}run.body.append(options);
+     question.focus();
+    }else if(answer.kind==='complete'){finishRun(run,'调查完成','已整理当前结论与证据，可继续追问。');render(answer.diagnosis);}
+    else{finishRun(run,'调查已暂停',answer.message,'paused');}
+    run.meta.textContent='累计模型调用 '+answer.calls+' 次；已报告 token '+(answer.usage.inputTokens+answer.usage.outputTokens)+'（供应商未返回用量时不计）。';
+   }catch(e){if(current===generation){finishRun(run,'本次调查未完成',e.message,'failed');question.value=text;}}
+   finally{clearInterval(run.timer);running=false;start.disabled=fresh.disabled=mode.disabled=false;stop.disabled=true;resume.disabled=!hasSession;if(current!==generation)status.textContent='旧调查已停止，可基于当前日志开始。';}
+  }
+  start.onclick=()=>send(question.value);
+  resume.onclick=()=>send(question.value.trim()||'请基于当前证据和调查笔记继续。优先核对未解决的问题，必要时向我提问。');
+ })();
+}
+</script></body></html>

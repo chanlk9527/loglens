@@ -1,0 +1,22 @@
+node_modules/
+.npm-cache/
+.electron-cache/
+.builder-cache/
+.desktop-stage/
+dist/
+.env
+*.local.json
+
+# Customer data and local investigation output
+MomcozyLogs*/
+*.log
+*.xlog
+*.mmap3
+*.zip
+*.pem
+*.key
+.env.*
+web/PARSER-AUDIT.md
+.smoke-profile/
+smoke.png
+.idea/

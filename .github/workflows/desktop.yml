@@ -1,0 +1,32 @@
+name: Desktop build
+on:
+  workflow_dispatch:
+  push:
+    paths: ['desktop/**', 'server/index.cjs', 'web/**', 'package*.json', '.github/workflows/desktop.yml']
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - run: npm run test:desktop
+      - name: Desktop conversation UI tests
+        shell: bash
+        run: node desktop/ui-tests.cjs < web/desktop-ui.js
+      - if: runner.os == 'Windows'
+        run: npm run dist:win -- --x64
+      - if: runner.os == 'macOS'
+        run: npm run dist:mac -- --arm64 --x64
+      - uses: actions/upload-artifact@v4
+        with:
+          name: LogLens-${{ runner.os }}
+          path: |
+            dist/*.exe
+            dist/*.dmg

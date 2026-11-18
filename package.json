@@ -1,0 +1,49 @@
+{
+  "name": "loglens-desktop",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local log analysis and evidence-based AI investigation",
+  "author": "LogLens",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "test:desktop": "node desktop/tests.cjs",
+    "pack": "node desktop/build-ci.cjs dir",
+    "dist:win": "node desktop/build-ci.cjs win",
+    "dist:mac": "node desktop/build-ci.cjs mac"
+  },
+  "devDependencies": {
+    "electron": "45.3.4",
+    "electron-builder": "26.15.0"
+  },
+  "overrides": {
+    "minimatch": "11.0.9"
+  },
+  "build": {
+    "appId": "com.loglens.desktop",
+    "productName": "LogLens",
+    "npmRebuild": false,
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "desktop/main.cjs",
+      "desktop/preload.cjs",
+      "desktop/store.cjs",
+      "desktop/agent.cjs",
+      "server/index.cjs",
+      "web/*.js",
+      "!web/*tests.js",
+      "web/index.html",
+      "web/style.css"
+    ],
+    "win": {
+      "target": "portable",
+      "signAndEditExecutable": false
+    },
+    "mac": {
+      "target": "dmg",
+      "category": "public.app-category.developer-tools"
+    }
+  }
+}
